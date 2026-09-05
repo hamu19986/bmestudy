@@ -1,0 +1,14 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Node (validate-content.js runs under Node, no install needed, but ignore if a lockfile appears)
+node_modules/
+
+# Logs
+*.log

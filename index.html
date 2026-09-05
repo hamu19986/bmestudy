@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Basics of Mechanical Engineering (25ESC-ME-103H) — Study & Exam Prep</title>
+<meta name="description" content="A complete self-study and exam-preparation platform for Basics of Mechanical Engineering (25ESC-ME-103H): notes, diagrams, formulas, flashcards, a question bank, mock exams and a smart revision system covering Units I–IV.">
+<meta name="theme-color" content="#1f6f5c">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Basics of Mechanical Engineering — Study & Exam Prep (25ESC-ME-103H)">
+<meta property="og:description" content="Learn, practice, revise and mock-test the entire 25ESC-ME-103H syllabus in one offline-friendly web app.">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%231f6f5c'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='white' font-family='Georgia,serif'%3E%E2%9A%99%3C/text%3E%3C/svg%3E">
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header id="app-header">
+  <button id="menu-toggle" class="btn btn-sm" aria-label="Toggle navigation menu">☰</button>
+  <a href="#/home" class="brand">Basics of Mechanical Engineering
+    <small>25ESC-ME-103H &middot; Study &amp; Exam Prep</small>
+  </a>
+  <div class="spacer"></div>
+  <form id="search-form" role="search">
+    <input type="search" id="search-box" placeholder="Search lathe, entropy, Pelton…" aria-label="Search the whole app">
+  </form>
+  <button id="theme-toggle" class="btn btn-sm" aria-label="Toggle dark mode">🌙</button>
+</header>
+
+<div id="app-shell">
+  <nav id="sidenav" aria-label="Primary navigation"></nav>
+  <div class="scrim" id="scrim"></div>
+  <main id="view" role="main">
+    <div class="empty-state">Loading…</div>
+  </main>
+</div>
+
+<nav id="bottom-nav" aria-label="Mobile navigation"></nav>
+
+<!-- ================= DATA (order-independent) ================= -->
+<script src="js/data/unit1.js"></script>
+<script src="js/data/unit2.js"></script>
+<script src="js/data/unit3.js"></script>
+<script src="js/data/unit4.js"></script>
+<script src="js/data/questions.js"></script>
+<script src="js/data/flashcards.js"></script>
+<script src="js/data/formulas.js"></script>
+<script src="js/data/glossary.js"></script>
+<script src="js/data/syllabus.js"></script>
+
+<!-- ================= CORE (must load after data, before pages) ================= -->
+<script src="js/core/app-core.js"></script>
+<script src="js/core/progress-calc.js"></script>
+
+<!-- ================= PAGES / ROUTES ================= -->
+<script src="js/pages/home.js"></script>
+<script src="js/pages/units.js"></script>
+<script src="js/pages/questions-page.js"></script>
+<script src="js/pages/flashcards-page.js"></script>
+<script src="js/pages/formulas-page.js"></script>
+<script src="js/pages/exam-page.js"></script>
+<script src="js/pages/revision-page.js"></script>
+<script src="js/pages/checklist-page.js"></script>
+<script src="js/pages/mistakes-page.js"></script>
+<script src="js/pages/progress-page.js"></script>
+<script src="js/pages/search-page.js"></script>
+<script src="js/pages/glossary-page.js"></script>
+
+<!-- ================= BOOT ================= -->
+<script>
+  ME.start();
+</script>
+
+</body>
+</html>
