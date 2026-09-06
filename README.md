@@ -26,13 +26,18 @@ weak areas across the whole semester — fully offline, no backend, no account.
   content set: 38 in-depth topic pages, 132-question bank, 70 flashcards,
   110-term glossary, 49-entry formula sheet, mock-exam engine, smart revision,
   study plan, mistake bank, progress dashboard, search.
-- **The other 8 subjects are wired end-to-end but their content slots are
-  empty and awaiting authoring.** Everything already works for them: subject
-  pages, per-unit routes, syllabus checklist, filters, exam landing pages and
-  the coverage report. Fill the data files (see below) and the UI picks them
-  up with zero code changes.
-- `npm run coverage` shows exactly which syllabus items are still pending
-  (currently 37/189 mapped — BME's 37 are 100% done).
+- **All 5 theory subjects are now content-complete** — Mathematics-I, Physics-I,
+  PPS (C programming), EGD and English were filled from the fed content
+  (`content/*.md`): 106 syllabus items mapped, 106 topic pages, 223 questions,
+  172 flashcards, plus PPS/physics formula sheets and glossaries. Every theory
+  subject now sits at 100% syllabus coverage.
+- **The 3 lab subjects (PPS Lab, Physics Lab, English Lab) are wired
+  end-to-end but their content slots are still awaiting authoring.** Everything
+  already works for them: subject pages, per-unit routes, syllabus checklist,
+  filters, exam landing pages and the coverage report. Fill the data files (see
+  below) and the UI picks them up with zero code changes.
+- `npm run coverage` shows exactly what remains: currently **143/189 mapped
+  (76%)** — all 6 theory subjects at 100%, 46 lab syllabus items pending.
 
 ## Architecture
 
