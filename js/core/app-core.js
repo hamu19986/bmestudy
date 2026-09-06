@@ -469,7 +469,21 @@ ME.renderNav = function () {
       g.links.map(function (l) {
         return '<a class="nav-link" data-route="' + l[0] + '" href="' + l[2] + '">' + l[1] + '</a>';
       }).join('');
-  }).join('');
+  }).join('') +
+    '<div class="nav-group-label">Appearance</div>' +
+    '<select id="theme-select-nav" class="theme-select" aria-label="Design theme">' +
+    document.getElementById('theme-select').innerHTML +
+    '</select>';
+
+  // Sync the sidenav copy of the theme picker
+  ME.applyTheme(ME.store.getTheme());
+  const navSelect = document.getElementById('theme-select-nav');
+  if (navSelect) {
+    navSelect.addEventListener('change', function () {
+      ME.setTheme(navSelect.value);
+      ME.toast('Theme: ' + navSelect.options[navSelect.selectedIndex].text);
+    });
+  }
 
   const bottom = document.getElementById('bottom-nav');
   const bnLinks = [
@@ -531,8 +545,7 @@ ME.applyTheme = function (t) {
   document.documentElement.setAttribute('data-theme', t);
   const btn = document.getElementById('theme-toggle');
   if (btn) btn.textContent = t === 'dark' ? '☀️' : '🌙';
-  const sel = document.getElementById('theme-select');
-  if (sel) sel.value = t;
+  ME.helpers.qsa('.theme-select').forEach(function (sel) { sel.value = t; });
 };
 
 ME.setTheme = function (t) {
