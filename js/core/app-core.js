@@ -517,10 +517,20 @@ ME.render = function () {
 };
 
 /* ---------------- Theme ---------------- */
+ME.THEMES = ['classic', 'dark', 'swiss', 'editorial', 'bento', 'glass', 'neobrutalism', 'cyberpunk'];
+
 ME.applyTheme = function (t) {
+  if (ME.THEMES.indexOf(t) === -1) t = 'classic';
   document.documentElement.setAttribute('data-theme', t);
   const btn = document.getElementById('theme-toggle');
   if (btn) btn.textContent = t === 'dark' ? '☀️' : '🌙';
+  const sel = document.getElementById('theme-select');
+  if (sel) sel.value = t;
+};
+
+ME.setTheme = function (t) {
+  ME.store.setTheme(t);
+  ME.applyTheme(t);
 };
 
 /* ---------------- Boot ---------------- */
@@ -529,10 +539,17 @@ ME.start = function () {
   ME.renderNav();
 
   document.getElementById('theme-toggle').addEventListener('click', function () {
-    const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    ME.store.setTheme(next);
-    ME.applyTheme(next);
+    const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'classic' : 'dark';
+    ME.setTheme(next);
   });
+
+  const themeSelect = document.getElementById('theme-select');
+  if (themeSelect) {
+    themeSelect.addEventListener('change', function () {
+      ME.setTheme(themeSelect.value);
+      ME.toast('Theme: ' + themeSelect.options[themeSelect.selectedIndex].text);
+    });
+  }
 
   document.getElementById('menu-toggle').addEventListener('click', function () {
     document.getElementById('sidenav').classList.toggle('open');

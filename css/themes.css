@@ -1,0 +1,206 @@
+/* ============================================================
+   THEME PACK — curated from the 29-style brief:
+     Swiss Design · Minimalism · Editorial Design · Luxury Typography
+     Bento Grid · Glassmorphism · Neo-Brutalism · Dark Mode UI · Cyberpunk
+   Each theme re-skins the SAME token set from style.css, so every
+   page works unchanged. The default ("classic") blueprint look lives
+   entirely in style.css and is untouched.
+   ============================================================ */
+
+/* Shared: keep hero watermark behind text in every theme */
+.hero::after { z-index: 0; }
+.hero h1, .hero p, .hero .btn, .exam-chip { position: relative; z-index: 1; }
+
+/* Theme picker in the header */
+.theme-select {
+  font-family: inherit; font-size: 0.85rem; padding: 6px 8px; border-radius: 8px;
+  border: 1px solid var(--border); background: var(--card); color: var(--ink);
+  max-width: 170px; cursor: pointer;
+}
+
+/* ============================================================
+   1. SWISS DESIGN / MINIMALISM — grid discipline, type does the work
+   ============================================================ */
+[data-theme="swiss"] {
+  --paper: #f7f7f4; --paper-2: #efefec; --ink: #141414; --muted: #6d6d6d;
+  --steel: #cfcfcb; --steel-2: #e6e6e2; --brass: #141414; --brass-2: #141414;
+  --accent: #e63012; --accent-2: #c22509; --danger: #e63012; --ok: #0f7a3d; --warn: #b07b00;
+  --card: #ffffff; --border: #d9d9d4;
+  --shadow: none;
+  --radius: 2px;
+  --font-sans: "Helvetica Neue", Helvetica, "Arial Nova", Arial, sans-serif;
+}
+[data-theme="swiss"] h1, [data-theme="swiss"] h2, [data-theme="swiss"] h3 { letter-spacing: -0.02em; font-weight: 700; }
+[data-theme="swiss"] .nav-group-label { letter-spacing: .12em; }
+[data-theme="swiss"] .card, [data-theme="swiss"] .diagram-box { box-shadow: none; border: 1px solid var(--border); }
+[data-theme="swiss"] .card-link:hover { transform: none; box-shadow: 4px 4px 0 rgba(20,20,20,0.9); }
+[data-theme="swiss"] .hero { border-radius: 0; }
+[data-theme="swiss"] .tag { border-radius: 0; }
+[data-theme="swiss"] .progress-bar { border-radius: 0; }
+[data-theme="swiss"] .timer-pill { border-radius: 0; }
+[data-theme="swiss"] .flashcard { border-radius: 0; }
+[data-theme="swiss"] button, [data-theme="swiss"] .btn { border-radius: 0; }
+[data-theme="swiss"] .btn-primary:hover { box-shadow: 3px 3px 0 rgba(20,20,20,0.9); }
+
+/* ============================================================
+   2. EDITORIAL DESIGN / LUXURY TYPOGRAPHY — serif voice, generous rules
+   ============================================================ */
+[data-theme="editorial"] {
+  --paper: #faf7f0; --paper-2: #f1ecdf; --ink: #221c12; --muted: #71685a;
+  --steel: #c9c0ae; --steel-2: #e7e0cf; --brass: #8a6d2f; --brass-2: #6d5522;
+  --accent: #7c1f2d; --accent-2: #5e141f; --danger: #a02525; --ok: #2f5d3a; --warn: #8a6d2f;
+  --card: #fffdf7; --border: #ddd3bd;
+  --shadow: 0 1px 2px rgba(34,28,18,0.05), 0 6px 18px rgba(34,28,18,0.05);
+  --radius: 4px;
+  --font-sans: Georgia, "Iowan Old Style", "Times New Roman", serif;
+}
+[data-theme="editorial"] h1, [data-theme="editorial"] h2 { font-weight: 600; letter-spacing: 0; }
+[data-theme="editorial"] .topic-section > h2 { border-bottom: 3px double var(--border); }
+[data-theme="editorial"] .brand, [data-theme="editorial"] .nav-group-label { text-transform: uppercase; letter-spacing: .14em; font-size: 0.72rem; }
+[data-theme="editorial"] .brand small { text-transform: none; letter-spacing: 0; font-size: 0.68rem; }
+[data-theme="editorial"] .card { border: 1px solid var(--border); }
+[data-theme="editorial"] .hero { border-radius: 2px; }
+[data-theme="editorial"] blockquote, [data-theme="editorial"] .extra-notes { font-style: italic; }
+
+/* ============================================================
+   3. BENTO GRID — rounded tiles, soft depth, spacious rhythm
+   ============================================================ */
+[data-theme="bento"] {
+  --paper: #f3f4f6; --paper-2: #e9ebef; --ink: #171a20; --muted: #646b76;
+  --steel: #c6cbd3; --steel-2: #e2e5ea; --brass: #7c5cd6; --brass-2: #6346b8;
+  --accent: #3b82f6; --accent-2: #2563eb; --danger: #ef4444; --ok: #22c55e; --warn: #f59e0b;
+  --card: #ffffff; --border: #e4e7ec;
+  --shadow: 0 1px 2px rgba(23,26,32,0.04), 0 10px 28px rgba(23,26,32,0.08);
+  --radius: 18px;
+}
+[data-theme="bento"] .card { padding: 18px; border: 1px solid var(--border); }
+[data-theme="bento"] .grid { gap: 16px; }
+[data-theme="bento"] .card, [data-theme="bento"] .diagram-box, [data-theme="bento"] .hero,
+[data-theme="bento"] .flashcard, [data-theme="bento"] button, [data-theme="bento"] .btn,
+[data-theme="bento"] select, [data-theme="bento"] input[type="text"], [data-theme="bento"] input[type="search"] { border-radius: 14px; }
+[data-theme="bento"] .tag, [data-theme="bento"] .badge-status { border-radius: 999px; padding: 2px 10px; }
+[data-theme="bento"] .card-link:hover { transform: translateY(-2px); }
+[data-theme="bento"] .progress-bar { border-radius: 999px; }
+[data-theme="bento"] main#view { max-width: 1040px; }
+
+/* ============================================================
+   4. GLASSMORPHISM — translucent layers over an ambient gradient
+   ============================================================ */
+[data-theme="glass"] {
+  --paper: #e8ecf8; --paper-2: #dde3f3; --ink: #1b2130; --muted: #5c6478;
+  --steel: #aab4d4; --steel-2: #ccd4ec; --brass: #6d28d9; --brass-2: #5b21b6;
+  --accent: #6d28d9; --accent-2: #5b21b6; --danger: #dc2626; --ok: #059669; --warn: #d97706;
+  --card: rgba(255,255,255,0.62); --border: rgba(255,255,255,0.65);
+  --shadow: 0 8px 32px rgba(31,38,135,0.16);
+  --radius: 16px;
+}
+[data-theme="glass"] body {
+  background: linear-gradient(135deg, #dfe6fb 0%, #eadff6 45%, #d8f0ee 100%) fixed;
+}
+[data-theme="glass"] .card, [data-theme="glass"] .diagram-box, [data-theme="glass"] .flashcard,
+[data-theme="glass"] .deck-chip, [data-theme="glass"] button, [data-theme="glass"] .btn,
+[data-theme="glass"] select, [data-theme="glass"] input {
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgba(255,255,255,0.6);
+}
+[data-theme="glass"] #app-header {
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+}
+[data-theme="glass"] #sidenav { background: rgba(255,255,255,0.38); }
+[data-theme="glass"] #sidenav a.nav-link.active { background: rgba(109,40,217,0.85); }
+[data-theme="glass"] .card-link:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(31,38,135,0.22); }
+[data-theme="glass"] .hero { background: linear-gradient(135deg, rgba(109,40,217,0.92), rgba(59,130,246,0.88)); }
+
+/* ============================================================
+   5. NEO-BRUTALISM — hard borders, hard shadows, unapologetic color
+   ============================================================ */
+[data-theme="neobrutalism"] {
+  --paper: #f6f2e7; --paper-2: #ede7d6; --ink: #101010; --muted: #4f4f4f;
+  --steel: #a8a8a0; --steel-2: #e3ddc9; --brass: #f5d90a; --brass-2: #d4b900;
+  --accent: #101010; --accent-2: #000000; --danger: #ff4911; --ok: #0aa06e; --warn: #f5a70a;
+  --card: #ffffff; --border: #101010;
+  --shadow: 4px 4px 0 #101010;
+  --radius: 8px;
+}
+[data-theme="neobrutalism"] .card, [data-theme="neobrutalism"] .diagram-box {
+  border: 2px solid #101010; box-shadow: 4px 4px 0 #101010;
+}
+[data-theme="neobrutalism"] button, [data-theme="neobrutalism"] .btn,
+[data-theme="neobrutalism"] select, [data-theme="neobrutalism"] input {
+  border: 2px solid #101010; box-shadow: 3px 3px 0 #101010; border-radius: 6px; font-weight: 700;
+}
+[data-theme="neobrutalism"] button:hover, [data-theme="neobrutalism"] .btn:hover {
+  transform: translate(-1px,-1px); box-shadow: 4px 4px 0 #101010;
+}
+[data-theme="neobrutalism"] .btn-primary { background: #f5d90a; color: #101010; border-color: #101010; }
+[data-theme="neobrutalism"] .btn-primary:hover { background: #ffe93d; border-color: #101010; }
+[data-theme="neobrutalism"] .card-link:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 #101010; }
+[data-theme="neobrutalism"] .tag, [data-theme="neobrutalism"] .badge-status {
+  border: 1.5px solid #101010; border-radius: 4px; font-weight: 700;
+}
+[data-theme="neobrutalism"] .hero { border: 2px solid #101010; box-shadow: 6px 6px 0 #101010; }
+[data-theme="neobrutalism"] .progress-bar { border: 1.5px solid #101010; border-radius: 0; }
+[data-theme="neobrutalism"] .progress-bar > span { background: #f5d90a; }
+[data-theme="neobrutalism"] #app-header { border-bottom: 2px solid #101010; }
+[data-theme="neobrutalism"] #sidenav { border-right: 2px solid #101010; }
+[data-theme="neobrutalism"] .flashcard { border: 2px solid #101010; box-shadow: 5px 5px 0 #101010; border-radius: 10px; }
+
+/* ============================================================
+   6. CYBERPUNK / DARK MODE UI — neon on near-black, mono accents
+   ============================================================ */
+[data-theme="cyberpunk"] {
+  --paper: #0b0e14; --paper-2: #10141d; --ink: #e8f0f8; --muted: #8b98ab;
+  --steel: #26304280; --steel-2: #1a2230; --brass: #f9e900; --brass-2: #f9e900;
+  --accent: #00e5ff; --accent-2: #64f0ff; --danger: #ff2a6d; --ok: #05ffa1; --warn: #f9e900;
+  --card: #121826; --border: #223047;
+  --shadow: 0 0 0 1px rgba(0,229,255,0.06), 0 0 28px rgba(0,229,255,0.07);
+  --radius: 6px;
+  --font-mono: "JetBrains Mono", "Fira Code", Consolas, monospace;
+}
+[data-theme="cyberpunk"] h1, [data-theme="cyberpunk"] h2 { letter-spacing: 0.01em; }
+[data-theme="cyberpunk"] .card, [data-theme="cyberpunk"] .diagram-box { border: 1px solid #223047; }
+[data-theme="cyberpunk"] .card-link:hover { box-shadow: 0 0 0 1px rgba(0,229,255,0.35), 0 0 32px rgba(0,229,255,0.15); transform: none; }
+[data-theme="cyberpunk"] .btn-primary { background: #00e5ff; color: #04121a; border-color: #00e5ff; font-weight: 700; }
+[data-theme="cyberpunk"] .btn-primary:hover { background: #64f0ff; border-color: #64f0ff; box-shadow: 0 0 18px rgba(0,229,255,0.45); }
+[data-theme="cyberpunk"] #sidenav a.nav-link.active { background: rgba(0,229,255,0.14); color: #64f0ff; box-shadow: inset 2px 0 0 #00e5ff; }
+[data-theme="cyberpunk"] .hero { background: linear-gradient(135deg, #0d2f3f 0%, #122642 100%); border: 1px solid #1f4b5f; }
+[data-theme="cyberpunk"] .hero h1 { color: #64f0ff; text-shadow: 0 0 18px rgba(0,229,255,0.5); }
+[data-theme="cyberpunk"] .hero::after { content: "⚡"; }
+[data-theme="cyberpunk"] .timer-pill { background: #00e5ff; color: #04121a; box-shadow: 0 0 16px rgba(0,229,255,0.4); }
+[data-theme="cyberpunk"] .progress-bar > span { background: linear-gradient(90deg, #00e5ff, #05ffa1); box-shadow: 0 0 12px rgba(0,229,255,0.55); }
+[data-theme="cyberpunk"] .formula-box { border-left-color: #f9e900; color: #f9e900; background: #131a10; }
+[data-theme="cyberpunk"] ::selection { background: #00e5ff; color: #04121a; }
+[data-theme="cyberpunk"] .topic-section > h2 { border-bottom-color: #1f4b5f; }
+[data-theme="cyberpunk"] .topic-section > h2 .num { color: #00e5ff; }
+/* dark-surface equivalents of the light-only chip palettes */
+[data-theme="cyberpunk"] .tag-unit1 { background: #0f2f26; color: #2ef2b3; }
+[data-theme="cyberpunk"] .tag-unit2 { background: #10263e; color: #4fc3ff; }
+[data-theme="cyberpunk"] .tag-unit3 { background: #332a08; color: #f9e900; }
+[data-theme="cyberpunk"] .tag-unit4 { background: #2c1030; color: #e05ce8; }
+[data-theme="cyberpunk"] .tag-easy { background: #0f2f1c; color: #05ffa1; }
+[data-theme="cyberpunk"] .tag-medium { background: #332a08; color: #f9e900; }
+[data-theme="cyberpunk"] .tag-hard { background: #38101f; color: #ff5c8a; }
+[data-theme="cyberpunk"] .tag-exam-challenge { background: #26102e; color: #c86bff; }
+[data-theme="cyberpunk"] .status-learning { background: #332a08; color: #f9e900; }
+[data-theme="cyberpunk"] .status-practiced { background: #10263e; color: #4fc3ff; }
+[data-theme="cyberpunk"] .status-mastered { background: #0f2f1c; color: #05ffa1; }
+[data-theme="cyberpunk"] .deck-chip-badge.fc-badge-know { background: #0f2f1c; color: #05ffa1; }
+[data-theme="cyberpunk"] .deck-chip-badge.fc-badge-almost { background: #332a08; color: #f9e900; }
+[data-theme="cyberpunk"] .deck-chip-badge.fc-badge-dont { background: #38101f; color: #ff5c8a; }
+[data-theme="cyberpunk"] .exam-tip { background: #2b2410; border-color: #4a3c15; }
+[data-theme="cyberpunk"] .mistake-box { background: #2c1712; border-color: #4d251d; }
+[data-theme="cyberpunk"] .tag-course.accent-maths   { background: #10263e; color: #4fc3ff; }
+[data-theme="cyberpunk"] .tag-course.accent-physics { background: #26102e; color: #c86bff; }
+[data-theme="cyberpunk"] .tag-course.accent-pps     { background: #33200e; color: #ff9a5c; }
+[data-theme="cyberpunk"] .tag-course.accent-egd     { background: #0f2f26; color: #2ef2b3; }
+[data-theme="cyberpunk"] .tag-course.accent-bme     { background: #33301a; color: #f2e05c; }
+[data-theme="cyberpunk"] .tag-course.accent-english { background: #2e1020; color: #ff7ab8; }
+
+/* ---------- Mobile comfort for the picker ---------- */
+@media (max-width: 880px) {
+  .theme-select { max-width: 132px; min-height: 44px; }
+}

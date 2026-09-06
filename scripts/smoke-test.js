@@ -173,5 +173,32 @@ agg.forEach(function (c) {
   if (!c[1]) failures++;
 });
 
+// Theme system sanity (debug pass for the theme pack)
+let themeAttr = null;
+global.document.documentElement.setAttribute = function (k, v) { if (k === 'data-theme') themeAttr = v; };
+global.document.documentElement.getAttribute = function (k) { return k === 'data-theme' ? themeAttr : null; };
+const themeChecks = (function () {
+  const out = [];
+  // 1. every registered theme applies
+  ME.THEMES.forEach(function (t) { ME.setTheme(t); out.push(['theme applies: ' + t, themeAttr === t]); });
+  // 2. persistence round-trip
+  ME.setTheme('cyberpunk');
+  out.push(['theme persisted', ME.store.getTheme() === 'cyberpunk']);
+  // 3. invalid theme falls back to classic
+  ME.applyTheme('hacker-green');
+  out.push(['invalid theme falls back to classic', themeAttr === 'classic']);
+  // 4. light/dark toggle round-trip (dark -> classic -> dark)
+  ME.setTheme('dark');
+  ME.applyTheme('classic');
+  const next = themeAttr === 'dark' ? 'classic' : 'dark';
+  out.push(['toggle logic maps correctly', next === 'dark']);
+  ME.setTheme('classic');
+  return out;
+})();
+themeChecks.forEach(function (c) {
+  console.log((c[1] ? '  ok  ' : '  FAIL') + ' check: ' + c[0]);
+  if (!c[1]) failures++;
+});
+
 console.log(failures === 0 ? '\nSMOKE TEST PASSED' : '\nSMOKE TEST FAILED (' + failures + ' issue(s))');
 process.exit(failures === 0 ? 0 : 1);
