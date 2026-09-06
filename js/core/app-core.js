@@ -476,7 +476,7 @@ ME.renderNav = function () {
     '</select>';
 
   // Sync the sidenav copy of the theme picker
-  ME.applyTheme(ME.store.getTheme());
+  ME.applyTheme(ME.store.getTheme() || 'bento');
   const navSelect = document.getElementById('theme-select-nav');
   if (navSelect) {
     navSelect.addEventListener('change', function () {
@@ -555,7 +555,7 @@ ME.setTheme = function (t) {
 
 /* ---------------- Boot ---------------- */
 ME.start = function () {
-  ME.applyTheme(ME.store.getTheme());
+  ME.applyTheme(ME.store.getTheme() || 'bento');
   ME.renderNav();
 
   document.getElementById('theme-toggle').addEventListener('click', function () {
