@@ -71,6 +71,8 @@ ME.progress.recommendedNext = function () {
   return t || null;
 };
 
+ME.progress.streak = function () { return ME.store.streakStatus(); };
+
 ME.progress.statusCounts = function () {
   const counts = { 'not-started': 0, 'learning': 0, 'practiced': 0, 'mastered': 0 };
   ME.data.allTopics.forEach(function (t) { counts[ME.store.getTopicStatus(t.id)]++; });

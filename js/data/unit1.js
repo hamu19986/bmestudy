@@ -27,7 +27,13 @@ const UNIT1_TOPICS = [
   quickCheck: [
     { q: 'Define a machine tool.', a: 'A power-driven device that shapes/cuts a rigid material by removing excess material as chips.' },
     { q: 'Name the two broad classes of machine tools.', a: 'Generating type and Forming type.' }
-  ]
+  ],
+  applications: [
+    'Producing precision components for every manufacturing industry — the machines that build other machines.',
+    'Mass-producing interchangeable parts (shafts, gears, housings) on production lines.',
+    'Tool rooms and repair shops, where a single machine must make a wide variety of one-off parts.'
+  ],
+  extraNotes: `The critical exam distinction is that a machine tool REMOVES material to create a shape, while a plain machine only transforms energy (an engine converts fuel to motion but makes nothing). That is why the lathe is called the "mother of all machine tools" — it can machine the parts needed to build every other machine tool. Also remember the two-way classification: generating type (surface produced by the combined motion of tool and workpiece, e.g. lathe, milling) versus forming type (the tool's own shape is copied onto the work, e.g. broaching, form milling).`
 },
 
 // ---------------------------------------------------------------
@@ -91,7 +97,13 @@ const UNIT1_TOPICS = [
     { q: 'Name the operation that produces a flat end face on the job.', a: 'Facing.' },
     { q: 'Which lathe part is used specifically for thread cutting?', a: 'The lead screw, engaged through the half-nut.' },
     { q: 'Is knurling a material-removal operation?', a: 'No — it is a forming operation that presses a pattern into the surface.' }
-  ]
+  ],
+  applications: [
+    'Turning long cylindrical components: shafts, axles, spindles, mandrels and pulleys.',
+    'Facing and parting off components for engines, pumps and machine assemblies.',
+    'Cutting external and internal threads on fasteners and pipe fittings, and producing tapers for tool shanks and cones.'
+  ],
+  extraNotes: `The cutting speed V = πDN/1000 is not just a formula to plug numbers into — it explains real machine behaviour: for a fixed rpm, a large-diameter job cuts faster than a small one, so the headstock gearbox must step the spindle speed down as the workpiece diameter grows. Higher cutting speeds generally give better surface finish on ductile metals (up to a limit set by the tool material). In exams, a lathe answer that names the part, its function, and one operation performed on it covers almost any 5-mark question.`
 },
 
 // ---------------------------------------------------------------
@@ -127,7 +139,13 @@ const UNIT1_TOPICS = [
   quickCheck: [
     { q: 'On which stroke does a shaper remove material?', a: 'The forward (cutting) stroke.' },
     { q: 'Name the mechanism that makes the return stroke faster.', a: 'Quick Return Mechanism (Crank and Slotted Link Mechanism).' }
-  ]
+  ],
+  applications: [
+    'Machining flat and contoured surfaces on small and medium-sized jobs in tool rooms.',
+    'Cutting keyways, slots and grooves on components that will later be assembled.',
+    'Producing small dies and mould halves where a single-point tool must reach into internal shapes.'
+  ],
+  extraNotes: `The quick return ratio matters because it directly sets productivity: the return stroke does no cutting, so making it fast (typical ratios 1.4–2.0) shortens the idle time between cuts. In the crank-and-slotted-link mechanism, the pin of a rotating crank slides in a slotted lever: when the crank pin travels the longer arc of its circle the ram moves slowly (cutting), and through the shorter arc it returns quickly. The shaper is inherently a low-production machine — one tool, one cut per stroke — which is exactly why it is used for small batches, not mass production.`
 },
 
 // ---------------------------------------------------------------
@@ -155,6 +173,12 @@ const UNIT1_TOPICS = [
     { q: 'In a planer, what reciprocates — the tool or the workpiece?', a: 'The workpiece (on the table).' },
     { q: 'Which type of planer is used for very large jobs that cannot be moved at all?', a: 'Pit planer.' }
   ],
+  applications: [
+    'Machining the long, flat guideways and beds of machine tools themselves.',
+    'Facing and edge-finishing large engine blocks, frames and heavy machine bases.',
+    'Producing flat plates and large structural surfaces in shipbuilding and heavy fabrication.'
+  ],
+  extraNotes: `The planer exists because a shaper cannot handle heavy workpieces: moving a multi-ton table is practical (it is designed for it), while moving a multi-ton workpiece past a small tool is not. Because the table can carry several workpieces and the cross rail can hold several tool heads cutting simultaneously, a planer removes metal far faster than a shaper for large jobs. The pit planer turns the logic upside down — the workpiece stays fixed in a pit and the housings/tools travel — which is why it suits enormous, immovable jobs.`,
   comparisonTable: {
     title: 'Shaper vs Planer',
     columns: ['Aspect', 'Shaper', 'Planer'],
@@ -208,6 +232,12 @@ const UNIT1_TOPICS = [
     { q: 'Is milling a single-point or multi-point cutting process?', a: 'Multi-point.' },
     { q: 'Which type of milling machine allows helical milling?', a: 'Universal milling machine (table can swivel).' }
   ],
+  applications: [
+    'Producing flat surfaces, slots, keyways and grooves at high material-removal rates.',
+    'Cutting gear teeth, splines and racks with form cutters.',
+    'Machining complex profiles, dies, moulds and engine components like cylinder heads and blocks.'
+  ],
+  extraNotes: `Milling cuts intermittently — each tooth enters and leaves the work in rapid succession — which lets the cutter cool between cuts but also means the machine and cutter must absorb repeated impacts. In climb (down) milling the cutter rotates WITH the feed, giving better finish but requiring backlash-free tables; conventional (up) milling cuts against the feed, safer on older machines but with a slight tendency to rub. The universal machine's swivelling table is what enables helical milling: the table is angled to the cutter axis by the helix angle so the gear blank rotates as it feeds.`,
   comparisonTable: {
     title: 'Horizontal vs Vertical Milling',
     columns: ['Aspect', 'Horizontal Milling', 'Vertical Milling'],
@@ -255,6 +285,12 @@ const UNIT1_TOPICS = [
     { q: 'What is the difference between drilling and boring?', a: 'Drilling originates a new hole; boring enlarges/finishes an existing one.' },
     { q: 'Which drilling machine type is best for a very large, heavy workpiece that should not be moved?', a: 'Radial drilling machine.' }
   ],
+  applications: [
+    'Holes for rivets, bolts, screws and dowels in assembly and fabrication work.',
+    'Oil holes, through-holes and clearance holes in engine blocks, frames and machine bodies.',
+    'Large, heavy workpieces via radial drilling machines, where the spindle arm moves to the work instead of the reverse.'
+  ],
+  extraNotes: `A twist drill removes material with two cutting edges at its tip; the helical flutes do three jobs at once — they carry chips out, deliver cutting fluid in, and give the drill its self-centring action. A drill bit's point angle matters: about 118° for general-purpose steel. The related operations are easy to confuse, so group them by function: reaming finishes and sizes a hole, boring enlarges it (and can correct alignment), counterboring seats bolt heads (flat-bottomed), countersinking seats screw heads (conical), spot facing creates a flat washer seat, and tapping cuts internal threads.`,
   comparisonTable: {
     title: 'Drilling vs Boring',
     columns: ['Aspect', 'Drilling', 'Boring'],
@@ -293,7 +329,13 @@ const UNIT1_TOPICS = [
   quickCheck: [
     { q: 'On which stroke does a slotter cut — up or down?', a: 'Downward stroke.' },
     { q: 'What mechanism gives the slotter its quick return?', a: 'Whitworth quick return mechanism.' }
-  ]
+  ],
+  applications: [
+    'Cutting internal keyways and splines inside bores — work a horizontal shaper cannot reach.',
+    'Producing internal gear teeth and irregular internal profiles in dies and moulds.',
+    'Machining external slots, splines and serrations on shafts.'
+  ],
+  extraNotes: `The slotter's vertical stroke is its entire reason for existing: internal profiles (keyways, splines, internal gears) can only be cut by a tool moving up and down inside the bore, since a horizontal tool cannot enter from the side. The Whitworth quick-return mechanism achieves the fast idle stroke with a rotating pin sliding in a slotted arm whose pivot is offset from the crank centre — the same family of idea as the shaper's slotted link, which is why examiners love to check you know WHICH mechanism belongs to WHICH machine.`
 },
 
 // ---------------------------------------------------------------
@@ -322,6 +364,12 @@ const UNIT1_TOPICS = [
     { q: 'What causes a poor surface finish with a built-up edge (BUE)?', a: 'Low/medium speed with insufficient rake angle in ductile materials, causing work material to weld onto the tool tip.' },
     { q: 'Define tool life.', a: 'The time between two successive grindings (or the useful cutting time) of a tool.' }
   ],
+  applications: [
+    'Choosing cutting speeds and feeds for every machining operation in production planning.',
+    'Selecting tool materials (HSS, carbides, ceramics) for the material being cut.',
+    'Predicting tool wear and scheduling tool changes on CNC machines and transfer lines.'
+  ],
+  extraNotes: `The chip formation story explains most of the theory: the wedge-shaped tool forces the material ahead of it to shear along a narrow zone (the shear plane), and the shear angle decides whether you get a thin, well-formed chip or a thick, torn one. Positive rake lowers cutting force but weakens the edge — fine for soft, ductile metals; negative rake strengthens the edge for hard materials and interrupted cuts (as in milling). A built-up edge (BUE) forms when work material welds to the tool tip at medium speeds, ruining finish — increasing speed or rake usually eliminates it. Tool life itself falls sharply as cutting speed rises (Taylor's tool-life relation VTⁿ = C), which is why speed selection is an economic decision, not just a technical one.`,
   comparisonTable: {
     title: 'Continuous vs Discontinuous Chips',
     columns: ['Aspect', 'Continuous chips', 'Discontinuous chips'],
@@ -358,6 +406,12 @@ const UNIT1_TOPICS = [
     { q: 'Give one intensive and one extensive property.', a: 'Intensive: pressure or temperature. Extensive: volume or mass (or total internal energy).' },
     { q: 'Define a thermodynamic cycle.', a: 'A series of processes after which the system returns exactly to its original state, so the net change in every property is zero.' }
   ],
+  applications: [
+    'Modelling engines, turbines, compressors and refrigerators as open or closed systems.',
+    'Deciding which properties to measure and which to compute in plant energy analysis.',
+    'First step of almost every thermodynamics numerical — "define the system and its boundary" before applying any law.'
+  ],
+  extraNotes: `The single most useful habit in thermodynamics is to draw the system boundary FIRST on any problem: only then can you say whether mass crosses it (open vs closed) and whether it exchanges heat or work (isolated vs not). Intensive properties (p, T, ρ) are the same whether you sample a drop or a tank; extensive properties (V, m, total U) scale with size — which is why "specific" quantities (per unit mass) exist, converting extensive properties into intensive ones for comparison.`,
   comparisonTable: {
     title: 'Open vs Closed vs Isolated Systems',
     columns: ['Type', 'Mass transfer', 'Energy transfer', 'Example'],
@@ -395,7 +449,13 @@ const UNIT1_TOPICS = [
     { q: 'Why are heat and work called path functions?', a: 'Because their values depend on the path followed during the process, not just on the initial and final states.' },
     { q: 'Write the formula for work done in an isothermal process.', a: 'W = p₁V₁ ln(V₂/V₁).' },
     { q: 'What is the sign convention for heat rejected by a system?', a: 'Negative.' }
-  ]
+  ],
+  applications: [
+    'Computing work and heat in piston-cylinder engines, compressors and turbines.',
+    'Choosing the correct work formula once the process type (isothermal, isobaric, polytropic…) is identified.',
+    'Sign convention discipline — the difference between +W and −W decides whether a numerical answer makes physical sense.'
+  ],
+  extraNotes: `The δQ/δW versus dU notation is not pedantry — it encodes a real distinction. U is a property: its change between two states is fixed, so we write dU and the change depends only on state 1 and state 2. Q and W are not properties: the same two end states can be connected by a slow, reversible path (lots of work, little heat) or a fast, throttling path (little work, lots of heat), so their values depend on the PATH and are written with δ. That is precisely why the First Law written as δQ = dU + δW works: the path-dependent terms on the two sides always balance, leaving the state-dependent dU to do the bookkeeping.`
 },
 
 // ---------------------------------------------------------------
@@ -414,7 +474,13 @@ const UNIT1_TOPICS = [
   quickCheck: [
     { q: 'State the Zeroth Law of Thermodynamics.', a: 'If two bodies are each in thermal equilibrium with a third body, they are in thermal equilibrium with each other.' },
     { q: 'What practical device is justified by the Zeroth Law?', a: 'The thermometer.' }
-  ]
+  ],
+  applications: [
+    'Temperature measurement of every kind — clinical, industrial, meteorological thermometers.',
+    'Calibrating one thermometer against another (secondary standard against primary standard).',
+    'Establishing the concept of temperature as a property that can be compared between systems.'
+  ],
+  extraNotes: `The Zeroth Law is really about the transitivity of thermal equilibrium: if A and B are each in equilibrium with C, they are in equilibrium with each other — no direct contact needed. That transitivity is what makes temperature a MEASURABLE property: the thermometer (C) equilibrates with the object (A), so we can assign a number to A without ever touching it. The law was named "Zeroth" because it was recognised after the First and Second Laws but is logically more fundamental — it deserved to be numbered before them. Remember also that thermodynamic temperature is measured in Kelvin, and that Celsius and Kelvin are related by T(K) = t(°C) + 273.15.`
 },
 
 // ---------------------------------------------------------------
@@ -440,7 +506,13 @@ const UNIT1_TOPICS = [
     { q: 'State the First Law of Thermodynamics for a cyclic process.', a: '∮δQ = ∮δW — net heat transfer equals net work transfer over a complete cycle.' },
     { q: 'Define enthalpy.', a: 'H = U + pV, the total energy of a flow system (internal energy plus flow work).' },
     { q: 'Is internal energy a path function or a point function?', a: 'A point function (property) — depends only on the state.' }
-  ]
+  ],
+  applications: [
+    'Energy analysis of boilers, turbines, condensers, nozzles and compressors (flow systems use enthalpy).',
+    'First-law numericals: given Q and ΔU, find W (or vice versa) for piston-cylinder processes.',
+    'Basis for energy audits — accounting for every joule entering and leaving a plant.'
+  ],
+  extraNotes: `A machine that violates the First Law — producing work without any energy input — is called a perpetual motion machine of the FIRST kind, and it is impossible: energy is conserved, full stop. The enthalpy concept exists for a practical reason: in a flow system (turbine, nozzle, heat exchanger), energy is carried in and out by the flowing fluid, and each kilogram carries its internal energy PLUS the "flow work" pv needed to push it through the boundary. Combining them as h = u + pv gives a single property whose change across a device equals the heat and work exchanged — which is why every steam and gas table is built around enthalpy, not internal energy.`
 },
 
 // ---------------------------------------------------------------
@@ -460,7 +532,13 @@ const UNIT1_TOPICS = [
     { q: 'State the Kelvin-Planck statement.', a: 'No heat engine can convert 100% of the heat it absorbs from a single reservoir into work in a cycle.' },
     { q: 'State the Clausius statement.', a: 'Heat cannot flow, unaided, from a colder to a hotter body — a cycle producing only this effect is impossible.' },
     { q: 'Are the two statements independent or equivalent?', a: 'Equivalent — violating one implies violating the other.' }
-  ]
+  ],
+  applications: [
+    'Setting the theoretical efficiency ceiling for every heat engine (automobiles, power plants, jet engines).',
+    'Explaining why refrigerators and heat pumps require external work input.',
+    'Judging whether a proposed "free energy" device is physically impossible without doing the math.'
+  ],
+  extraNotes: `The Second Law adds something the First Law cannot: direction. The First Law allows heat to flow from cold to hot as long as energy balances — the Second Law forbids it without work input. The Kelvin-Planck statement rules out the perpetual motion machine of the SECOND kind (100% efficient engine); the Clausius statement rules out the perfect refrigerator. They look different but are the same law in two costumes: any device that violates one can be combined with ordinary machines to build a device that violates the other — which is why examiners reward the one-line "they are equivalent" remark. The Second Law also introduces the quality of energy: low-temperature heat is less useful than high-temperature heat, because less of it can be converted to work.`
 },
 
 // ---------------------------------------------------------------
@@ -484,7 +562,13 @@ const UNIT1_TOPICS = [
     { q: 'State the Third Law of Thermodynamics.', a: 'The entropy of a pure, perfect crystalline substance is zero at absolute zero temperature (0 K).' },
     { q: 'What does the Third Law imply about reaching absolute zero?', a: 'Absolute zero can be approached but never actually attained.' },
     { q: 'Under what condition does ΔS of a system equal exactly zero?', a: 'For a reversible process.' }
-  ]
+  ],
+  applications: [
+    'Predicting whether a proposed process can occur naturally (spontaneous ⇒ ΔS(universe) > 0).',
+    'Working with T–s diagrams, the standard way to represent and analyse power and refrigeration cycles.',
+    'Cryogenics and low-temperature physics, where the Third Law sets the limit of attainable temperatures.'
+  ],
+  extraNotes: `Entropy is often described as "disorder," but the more exam-useful way to think about it is as the UNAVAILABILITY of energy: high-entropy energy (heat in a lukewarm room) cannot be converted to work, while low-entropy energy (a hot reservoir) can. The principle of increase of entropy, ΔS(universe) ≥ 0, is the Second Law in a single inequality — every real process makes the universe more disordered. Do not write "entropy always increases" without the qualifier: the entropy of a single SYSTEM can decrease (a refrigerator lowers the entropy of the food inside); it is the combined entropy of system plus surroundings that never decreases. The Third Law gives the Third Law its practical punch: because reaching 0 K would require removing the last bit of entropy through a finite number of steps, absolute zero can be approached arbitrarily closely but never reached.`
 },
 
 // ---------------------------------------------------------------
@@ -506,7 +590,13 @@ const UNIT1_TOPICS = [
   quickCheck: [
     { q: 'A question says "gas expands at constant pressure" — which work formula applies?', a: 'Isobaric work: W = p(V₂ − V₁).' },
     { q: 'What must you always check before using T in a formula like dS = δQ/T?', a: 'That T is in Kelvin, not Celsius.' }
-  ]
+  ],
+  applications: [
+    'Every closed-system First Law numerical: identify the process → pick the work formula → apply δQ = dU + δW.',
+    'Heat-engine efficiency problems (η = 1 − Q_reject/Q_supplied) that appear in Q1 every year.',
+    'Ideal-gas problems where Δh = Cp·ΔT or Δu = Cv·ΔT must be matched to the process at hand.'
+  ],
+  extraNotes: `The whole of Unit I numericals reduces to a decision tree. First decide the process from the wording: "constant pressure" → isobaric (W = pΔV); "constant temperature" → isothermal (W = p₁V₁ ln(V₂/V₁)); "no heat exchange" → adiabatic; "fixed volume" → isochoric (W = 0). Then pick the property-change formula: for ideal gases, ΔU always equals Cv·ΔT and ΔH always equals Cp·ΔT regardless of process — a fact that surprises students who think Cp is only for constant-pressure paths. Finally, discipline on units: temperatures in Kelvin inside any formula containing T directly, pressures and volumes consistent (Pa·m³ = J), and the final answer carries its unit. Examiners award staged partial marks — write the Given/Find/Formula skeleton even when you are unsure of the arithmetic.`
 }
 
 ];

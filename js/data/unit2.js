@@ -24,7 +24,13 @@ const UNIT2_TOPICS = [
   quickCheck: [
     { q: 'Define Ton of Refrigeration.', a: 'The rate of heat removal needed to freeze one ton of water at 0°C into ice at 0°C in 24 hours.' },
     { q: '1 TR equals how many kW (approx)?', a: 'Approximately 3.5 kW.' }
-  ]
+  ],
+  applications: [
+    'Domestic refrigerators, freezers, cold storage and food-preservation plants.',
+    'Rated cooling capacity of commercial and industrial refrigeration machinery (in TR).',
+    'Air-conditioning system design, where the cooling load is expressed in TR or kW.'
+  ],
+  extraNotes: `The Ton of Refrigeration is a RATE, not an amount: it is the heat removal rate that freezes one short ton (2000 lb) of water at 0°C into ice at 0°C in 24 hours. Working it out: latent heat of ice ≈ 335 kJ/kg, so 1 TR ≈ (907 kg × 335 kJ/kg) / 86400 s ≈ 3.5 kW. That is why the three memorised values — 3.5 kW, 210 kJ/min, 12,000 Btu/hr — are all the same number in different units. In numericals you will convert a cooling load (say 10 TR) to kW (35 kW) and then use it with the COP to find the work input.`
 },
 
 // ---------------------------------------------------------------
@@ -47,7 +53,13 @@ const UNIT2_TOPICS = [
   quickCheck: [
     { q: 'Can COP be greater than 1? Why?', a: 'Yes — because a refrigeration cycle moves heat rather than creates it, so the heat moved can exceed the work input.' },
     { q: 'If COP(refrigerator) = 3, what is COP(heat pump) for the same cycle?', a: '4 (COP_HP = COP_R + 1).' }
-  ]
+  ],
+  applications: [
+    'Rating the "bang for the buck" of refrigerators, freezers and heat pumps.',
+    'Comparing alternative refrigeration cycles — higher COP means lower running cost for the same duty.',
+    'Heat-pump heating design, where COP(HP) = COP(R) + 1 explains why heat pumps can be >100% "efficient".'
+  ],
+  extraNotes: `The formula COP(HP) = COP(R) + 1 looks like magic but is a pure energy balance: the heat delivered by a heat pump (Q_H) equals the heat it extracts (Q_L) plus the work input (W), so Q_H/W = Q_L/W + 1. The same vapour-compression hardware, used to cool a room in summer (refrigerator, COP = Q_L/W) or heat it in winter (heat pump, COP = Q_H/W), has COPs differing by exactly 1. And unlike engine efficiency, COP has no upper bound of 1 — it only measures how much heat is moved per unit of work, which is why a heat pump can "deliver" more heat energy than the electrical energy it consumes.`
 },
 
 // ---------------------------------------------------------------
@@ -102,7 +114,13 @@ const UNIT2_TOPICS = [
     { q: 'List the four components of a VCR cycle in order.', a: 'Compressor → Condenser → Expansion valve → Evaporator (then back to compressor).' },
     { q: 'Which process in the cycle is at constant enthalpy?', a: 'Expansion (throttling) through the expansion valve.' },
     { q: 'Which process actually produces the cooling effect?', a: 'Evaporation, in the evaporator.' }
-  ]
+  ],
+  applications: [
+    'Every domestic refrigerator and freezer — the exact four-component loop described here.',
+    'Room air conditioners, car AC systems and commercial cold-storage plants.',
+    'Heat pumps (same cycle reversed in purpose), water coolers and dehumidifiers.'
+  ],
+  extraNotes: `The VCR cycle works because the refrigerant's phase changes do the heavy lifting: evaporating at LOW pressure absorbs a large amount of heat (the latent heat of vaporisation) at a low temperature, and condensing at HIGH pressure rejects that heat at a higher temperature — so the cycle effectively "pumps" heat uphill, from the cold space to the warm surroundings. The four processes pair up: 1–2 compression (work in, pressure up), 2–3 condensation (heat out, constant p), 3–4 expansion (constant enthalpy, pressure and temperature crash), 4–1 evaporation (heat in, constant p). The expansion valve is the component students get wrong most: it produces NO work — throttling is irreversible and constant-enthalpy, so h3 = h4, and the cooling effect is exactly h1 − h4.`
 },
 
 // ---------------------------------------------------------------
@@ -134,7 +152,13 @@ const UNIT2_TOPICS = [
   quickCheck: [
     { q: 'What temperature does the wet bulb thermometer measure, and why is it usually lower than DBT?', a: 'It measures the cooling effect of evaporation from a wet wick — evaporation absorbs latent heat, so WBT < DBT unless air is already saturated.' },
     { q: 'Define Dew Point Temperature.', a: 'The temperature at which moisture in the air just begins to condense, at constant pressure.' }
-  ]
+  ],
+  applications: [
+    'Designing air-conditioning systems: sizing cooling coils to dehumidify as well as cool.',
+    'Predicting fog and condensation on cold surfaces (dew on glass, sweating pipes).',
+    'Reading a psychrometric chart to find every other moist-air property from any two known ones.'
+  ],
+  extraNotes: `The hierarchy of the three temperatures is a favourite exam question: DBT ≥ WBT ≥ DPT, with equality at 100% relative humidity. The wet bulb is lower than the dry bulb because evaporating water from the wet wick absorbs latent heat from the thermometer bulb; the drier the air, the faster the evaporation and the bigger the depression (DBT − WBT). The dew point is found on the chart by moving HORIZONTALLY (constant humidity ratio) left until the saturation curve is reached — at that temperature the air is saturated with the moisture it already holds. Also keep humidity ratio (an absolute mass ratio, kg vapour per kg dry air) firmly separate from relative humidity (a percentage comparison to saturation) — mixing these up is the most common psychrometry error.`
 },
 
 // ---------------------------------------------------------------
@@ -153,7 +177,13 @@ const UNIT2_TOPICS = [
   quickCheck: [
     { q: 'Name the factors affecting human comfort in an air-conditioned space.', a: 'Air temperature, relative humidity, air velocity, radiant heat, and the occupant\'s clothing/activity level.' },
     { q: 'What is the typical comfort zone DBT range?', a: 'About 22–25°C.' }
-  ]
+  ],
+  applications: [
+    'Setting thermostat and humidity targets for offices, homes, hospitals and classrooms.',
+    'Designing air distribution so air motion (velocity) aids comfort without causing drafts.',
+    'Industrial comfort air conditioning (as opposed to process air conditioning for manufacturing).'
+  ],
+  extraNotes: `Comfort is about the heat balance of the human body, not just the air temperature: the body must reject the heat it generates (about 100 W at rest) at a rate that feels neutral. That is why humidity matters — at high relative humidity, sweat cannot evaporate, so the body cannot shed heat even if the DBT is moderate. Effective temperature is the index that bundles DBT, humidity and air velocity into one "feels like" number; ASHRAE's comfort envelope (roughly 22–25°C DBT and 40–60% RH for sedentary people) is the practical design target. Clothing and activity level shift the envelope — which is why "factors affecting human comfort" answers should always end with them.`
 },
 
 // ---------------------------------------------------------------
@@ -180,6 +210,12 @@ const UNIT2_TOPICS = [
     { q: 'What quantity is "gross head minus losses" called?', a: 'Net (effective) head.' },
     { q: 'Name one impulse turbine and one reaction turbine.', a: 'Impulse: Pelton wheel. Reaction: Francis or Kaplan turbine.' }
   ],
+  applications: [
+    'Hydroelectric power generation — the dominant renewable source in many countries.',
+    'Choosing a turbine type from a site\'s head and discharge (high head → Pelton, low head → Kaplan).',
+    'Pumped-storage plants, where turbines and pumps are combined in one reversible machine.'
+  ],
+  extraNotes: `The impulse/reaction distinction is about WHERE the pressure drop happens, and it is best remembered with the "full of water" test: a reaction turbine's runner is always completely full of water, and pressure falls as the water flows through the runner vanes; an impulse turbine's runner is only partly wetted — the jet strikes the buckets at atmospheric pressure and no pressure change occurs across the runner. The head also picks the machine: high head and low discharge suit the impulse (Pelton) type, medium head the Francis, and low head with large discharge the Kaplan. Turbine selection is therefore a two-step: first decide impulse vs reaction from head, then flow direction from the site's discharge.`,
   comparisonTable: {
     title: 'Impulse Turbine vs Reaction Turbine',
     columns: ['Aspect', 'Impulse Turbine (e.g. Pelton)', 'Reaction Turbine (e.g. Francis, Kaplan)'],
@@ -217,7 +253,13 @@ const UNIT2_TOPICS = [
   quickCheck: [
     { q: 'Through roughly what angle is the jet deflected by a Pelton bucket?', a: 'About 160°–165°.' },
     { q: 'What controls the flow rate (and hence power) in a Pelton turbine?', a: 'The spear/needle inside the nozzle.' }
-  ]
+  ],
+  applications: [
+    'High-head, low-discharge hydro sites — typically mountainous regions with reservoirs high above the powerhouse.',
+    'Small hydro and micro-hydro units, where a single jet is simple and reliable.',
+    'Any site where the water supply is limited but the head is large, since Pelton wheels run well at part load.'
+  ],
+  extraNotes: `The Pelton wheel extracts energy purely by momentum change: the jet hits the central splitter of each bucket and is deflected back through ~160–165°, nearly reversing its velocity — the change in momentum produces the force, and the wheel's rim speed is optimised to about half the jet speed for maximum efficiency. The spear (needle) regulates flow by sliding in and out of the nozzle, changing the jet's cross-section; a deflector plate can also divert the jet for emergency speed control. Because the runner is never full of water and the jet is at atmospheric pressure, Pelton wheels can run at high heads with no sealing problem — but they need the pressure converted to kinetic energy by the nozzle FIRST, which is the essence of the impulse principle.`
 },
 
 // ---------------------------------------------------------------
@@ -242,7 +284,13 @@ const UNIT2_TOPICS = [
   quickCheck: [
     { q: 'What is the function of guide vanes in a Francis turbine?', a: 'They regulate the quantity and direction of water flowing onto the runner.' },
     { q: 'Is the Francis turbine impulse or reaction type?', a: 'Reaction type.' }
-  ]
+  ],
+  applications: [
+    'Medium-head hydroelectric plants (roughly 60–250 m) — the most common turbine type worldwide.',
+    'Large river dams and reservoir schemes where both head and discharge are moderate.',
+    'Pumped-storage projects, where a Francis machine can run as both turbine and pump.'
+  ],
+  extraNotes: `Follow the water through a Francis turbine and you will remember the parts: the spiral (scroll) casing wraps around the runner and spreads the flow evenly around its full circumference; the adjustable guide vanes (wicket gates) spin the water onto the runner at the right angle and throttle the flow for part-load control; the runner itself turns the water radially inward, then axially downward — the "mixed flow" path; and the draft tube, a gradually expanding pipe below the runner, recovers kinetic energy from the exiting water, letting the runner sit above tailrace level and gaining several percent of efficiency. The pressure drop happens partly in the guide vanes and partly inside the runner — that is what makes it a reaction machine, with the runner always full of water.`
 },
 
 // ---------------------------------------------------------------
@@ -267,6 +315,12 @@ const UNIT2_TOPICS = [
     { q: 'What is the key mechanical feature that lets a Kaplan turbine stay efficient over a wide load range?', a: 'Adjustable-pitch runner blades.' },
     { q: 'In what direction does water flow through a Kaplan runner?', a: 'Axially (parallel to the shaft).' }
   ],
+  applications: [
+    'Low-head (below ~60 m), high-discharge sites — large rivers with a gentle drop.',
+    'Run-of-river hydro plants, tidal barrage turbines and large irrigation schemes.',
+    'Sites with widely varying flow, because adjustable blades keep efficiency high across the load range.'
+  ],
+  extraNotes: `The Kaplan turbine is a propeller turbine with one decisive upgrade: the runner blades can pivot to change pitch. At low load a fixed-blade propeller stalls and loses efficiency, but a Kaplan can flatten or steepen its blades to match the flow, so it stays efficient from about 20% to 100% load — the reason it dominates low-head installations where river flow varies seasonally. Water enters axially through guide vanes and leaves axially, so the machine is compact for its discharge. Remember the two-word exam trigger: Kaplan = "adjustable-pitch axial-flow," and contrast it with Francis (fixed runner, mixed flow, medium head) and Pelton (impulse, high head).`,
   comparisonTable: {
     title: 'Pelton vs Francis vs Kaplan',
     columns: ['Aspect', 'Pelton', 'Francis', 'Kaplan'],
@@ -306,7 +360,13 @@ const UNIT2_TOPICS = [
   quickCheck: [
     { q: 'What energy conversion happens inside a centrifugal pump\'s casing?', a: 'Kinetic (velocity) energy of the water is converted into pressure energy as the flow area increases.' },
     { q: 'Name the two common casing types for a centrifugal pump.', a: 'Volute casing and diffuser (turbine) casing.' }
-  ]
+  ],
+  applications: [
+    'Water supply and distribution systems — the most common pump in the world.',
+    'Circulating coolant in power plants, HVAC systems and engine cooling circuits.',
+    'Irrigation, sewage handling, chemical transfer and fire-fighting systems.'
+  ],
+  extraNotes: `Think of a centrifugal pump as a reaction turbine run in reverse: shaft power IN creates fluid pressure OUT. The impeller flings the water outward at the eye, giving it kinetic energy; the casing then trades that velocity for pressure as the flow area grows — a volute casing does this in one spiralling passage, a diffuser (turbine) casing uses fixed guide vanes around the impeller for a more gradual, slightly more efficient conversion. A centrifugal pump is NOT self-priming: the casing must be filled with liquid before start-up, because air is far too light for the impeller to develop meaningful suction. Multi-staging (several impellers in series) is how these pumps reach high heads without enormous impeller diameters.`
 },
 
 // ---------------------------------------------------------------
@@ -336,6 +396,12 @@ const UNIT2_TOPICS = [
     { q: 'What type of pump is a reciprocating pump — positive displacement or centrifugal action?', a: 'Positive displacement.' },
     { q: 'How many delivery strokes per revolution does a double-acting reciprocating pump give?', a: 'Two.' }
   ],
+  applications: [
+    'High-pressure, low-discharge duties: hydraulic presses, boiler feed, oil-field and chemical injection.',
+    'Handling viscous liquids and fluids containing solids, which frustrate centrifugal impellers.',
+    'Accurate metering/dosing pumps, where a fixed volume per stroke means a known delivered quantity.'
+  ],
+  extraNotes: `A reciprocating pump is a positive-displacement machine: each stroke shoves a fixed volume of liquid out, so the discharge is fundamentally pulsating — highest at mid-stroke and zero at the dead centres — which is why air vessels (accumulators) are fitted to smooth the flow in real installations. The non-return (check) valves are what give it direction: the suction valve admits liquid on the intake stroke and slams shut on delivery; the delivery valve does the reverse. Single-acting pumps deliver once per revolution; double-acting pumps use both faces of the piston to deliver twice per revolution. Compared with a centrifugal pump it delivers lower flow at much higher pressure, is self-priming, and handles viscous fluids well — at the cost of pulsation, vibration and higher maintenance.`,
   comparisonTable: {
     title: 'Centrifugal Pump vs Reciprocating Pump',
     columns: ['Aspect', 'Centrifugal Pump', 'Reciprocating Pump'],

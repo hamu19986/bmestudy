@@ -18,7 +18,7 @@ ME.routes.glossary = function (parsed) {
       <label class="muted" style="font-size:0.8rem;">Search glossary</label>
       <input type="text" id="glossary-search" placeholder="e.g. entropy" value="${ME.helpers.escapeHtml(text)}">
     </div>
-    ${!text ? `<div class="glossary-jump">${letters.map(function (l) { return '<a href="#letter-' + l + '">' + l + '</a>'; }).join('')}</div>` : ''}
+    ${!text ? `<div class="glossary-jump">${letters.map(function (l) { return '<a href="#/glossary#letter-' + l + '">' + l + '</a>'; }).join('')}</div>` : ''}
     <div id="glossary-list">
       ${filtered.length ? filtered.map(function (g, i) {
         const showAnchor = !text && (i === 0 || filtered[i - 1].term[0].toUpperCase() !== g.term[0].toUpperCase());

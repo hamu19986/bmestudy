@@ -98,13 +98,36 @@ ME.data.syllabus = (typeof SYLLABUS !== 'undefined') ? SYLLABUS : [];
   ME.store.getTheme = function () { return ME.store.get('theme', 'light'); };
   ME.store.setTheme = function (t) { ME.store.set('theme', t); };
 
-  // Topic visit log (for "recently studied")
+  // Topic visit log (for "recently studied") — also counts as study activity
   ME.store.logVisit = function (id) {
     const v = ME.store.get('topic-visits', {});
     v[id] = Date.now();
     ME.store.set('topic-visits', v);
+    ME.store.recordActivity();
   };
   ME.store.getVisits = function () { return ME.store.get('topic-visits', {}); };
+
+  // Study streak: consecutive calendar days with at least one study action.
+  ME.store.recordActivity = function () {
+    const data = ME.store.get('streak', { current: 0, best: 0, last: null });
+    const now = new Date();
+    const todayKey = now.toISOString().slice(0, 10);
+    const yesterdayKey = new Date(now.getTime() - 86400000).toISOString().slice(0, 10);
+    if (data.last === todayKey) return data; // already counted today
+    if (data.last === yesterdayKey) data.current += 1;
+    else data.current = 1;
+    data.last = todayKey;
+    if (data.current > data.best) data.best = data.current;
+    ME.store.set('streak', data);
+    return data;
+  };
+  ME.store.streakStatus = function () {
+    const data = ME.store.get('streak', { current: 0, best: 0, last: null });
+    const todayKey = new Date().toISOString().slice(0, 10);
+    const yesterdayKey = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+    const alive = data.last === todayKey || data.last === yesterdayKey;
+    return { current: data.current, best: data.best, activeToday: data.last === todayKey, alive: alive };
+  };
 })();
 
 /* ---------------- Helpers ---------------- */
@@ -142,7 +165,8 @@ ME.helpers.qsa = function (sel, root) { return Array.prototype.slice.call((root 
 ME.helpers.parseHash = function () {
   let hash = location.hash.replace(/^#\/?/, '');
   if (!hash) hash = 'home';
-  const [path, queryStr] = hash.split('?');
+  const [pathAndAnchor, queryStr] = hash.split('?');
+  const [path, anchor] = pathAndAnchor.split('#');
   const parts = path.split('/').filter(Boolean);
   const query = {};
   if (queryStr) {
@@ -151,7 +175,7 @@ ME.helpers.parseHash = function () {
       if (k) query[decodeURIComponent(k)] = decodeURIComponent(v || '');
     });
   }
-  return { route: parts[0] || 'home', parts: parts, query: query };
+  return { route: parts[0] || 'home', parts: parts, query: query, anchor: anchor || '' };
 };
 
 ME.helpers.setActiveNav = function (route) {
@@ -244,6 +268,13 @@ ME.render = function () {
     } catch (err) {
       console.error(err);
       ME.setView('<div class="empty-state"><h2>Something went wrong rendering this page.</h2><p class="muted">' + ME.helpers.escapeHtml(err.message) + '</p></div>');
+    }
+    if (parsed.anchor) {
+      const el = document.getElementById(parsed.anchor);
+      if (el) {
+        el.scrollIntoView({ block: 'start' });
+        window.scrollBy(0, -90); // leave breathing room below the sticky header
+      }
     }
   } else {
     ME.setView('<div class="empty-state"><h2>Page not found</h2><p><a href="#/home">Go back home</a></p></div>');

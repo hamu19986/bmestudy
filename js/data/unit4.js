@@ -27,7 +27,14 @@ const UNIT4_TOPICS = [
   quickCheck: [
     { q: 'Which manufacturing system uses general-purpose machines and highly skilled labour for a wide variety of custom products?', a: 'Job shop production.' },
     { q: 'Give an example of continuous/flow production.', a: 'A chemical or petroleum refining process, or cement manufacturing.' }
-  ]
+  ],
+  applications: [
+    'Job shop: tool rooms, prototype and custom fabrication shops making one-off or small-lot parts.',
+    'Batch: seasonal clothing, textbook print runs, packaged food and pharmaceuticals made in lots.',
+    'Mass: automobile assembly lines, consumer electronics and home appliances on dedicated lines.',
+    'Continuous: petroleum refining, cement, chemicals and steel — 24/7 flow processing.'
+  ],
+  extraNotes: `The four systems sit on one continuous spectrum defined by VOLUME and VARIETY: job shop has the highest variety and lowest volume, and as volume rises and variety falls you move through batch and mass to continuous production. The machinery follows: general-purpose machines with skilled labour (flexible but slow) at one end, special-purpose dedicated lines (rigid but fast and cheap per unit) at the other. The practical reason this matters: a factory choosing "mass production" for a product with frequent design changes would be stuck with obsolete tooling, while a job shop making a million identical parts would be hopelessly slow — the system must match the product. NC/CNC machines blur the boundary by making even small batches fast to set up, which is exactly why numerically-controlled machine tools appear in the same syllabus.`
 },
 
 // ---------------------------------------------------------------
@@ -71,6 +78,11 @@ const UNIT4_TOPICS = [
     { q: 'What are the three basic components of an NC system?', a: 'Part program, Machine Control Unit (MCU), and the machine tool.' },
     { q: 'What is the "brain" of an NC system called?', a: 'The Machine Control Unit (MCU).' }
   ],
+  applications: [
+    'CNC lathes, milling machines and machining centres that run complex parts automatically.',
+    'Automated drilling, riveting and assembly in aerospace and automotive production.',
+    'EDM (electrical discharge machining), laser cutting and welding robots guided by part programs.'
+  ],
   extraNotes: `Advantages of NC: high accuracy and repeatability; reduced dependency on operator skill and human error; increased productivity via reduced setup/machining time; flexibility to switch jobs by simply changing the part program; reduced scrap/rework and better quality control; reduced lead time for new components.`
 },
 
@@ -97,7 +109,14 @@ const UNIT4_TOPICS = [
   quickCheck: [
     { q: 'Which motion-control type is used for a simple drilling operation, and why?', a: 'Point-to-Point (PTP) — only the final position of each hole matters, not the path taken to get there.' },
     { q: 'What is the key difference between open-loop and closed-loop NC systems?', a: 'Closed-loop uses feedback (encoders/transducers) to verify and correct actual position; open-loop has no such feedback.' }
-  ]
+  ],
+  applications: [
+    'Point-to-Point: drilling machines, spot welding, punching and riveting — only the end position matters.',
+    'Straight-cut: simple milling and turning cuts along the machine axes at a controlled feed.',
+    'Contouring: machining cams, dies, turbine blades and complex 3-D profiles needing coordinated multi-axis motion.',
+    'Open-loop systems (stepper motors) in low-cost, low-accuracy equipment; closed-loop (servo + encoder) where precision is critical.'
+  ],
+  extraNotes: `The two classification axes answer two different questions, and it helps to keep them separate. Motion control asks: "does the PATH between points matter?" — for a drill, no (point-to-point); for a contour mill, yes, continuously (contouring); straight-cut is the middle case, moving along axes in straight lines only. Control loop asks: "does the machine check where it actually is?" — an open-loop system commands a stepper motor and trusts it arrived; a closed-loop system measures position with an encoder/resolver and corrects any error. Open-loop is cheaper and simpler but can lose steps under load; closed-loop is accurate and reliable but costs more — which is why real CNC machines are almost always closed-loop, while low-cost hobby machines often are not.`
 },
 
 // ---------------------------------------------------------------
@@ -117,6 +136,12 @@ const UNIT4_TOPICS = [
     { q: 'Where is the part program stored in a classic NC machine?', a: 'On punched tape/cards, read again for each job — there is no on-board memory.' },
     { q: 'Name two capabilities CNC has that classic NC lacks.', a: 'Any two of: at-the-machine editing, built-in diagnostics, storing multiple programs simultaneously, no tape-wear-related accuracy loss.' }
   ],
+  applications: [
+    'CNC machining centres running complex, multi-operation parts with tools changed automatically.',
+    'Flexible manufacturing: one machine producing many different parts by simply calling up different stored programs.',
+    'High-accuracy production where consistent repeatability is critical — aerospace, dies and moulds, medical components.'
+  ],
+  extraNotes: `The NC-to-CNC change is architectural, not just cosmetic: NC control logic is hard-wired into the machine (it cannot be changed without rewiring) and its program lives on punched tape that must be re-read every job; CNC replaces that with a stored-program computer, so programs live in memory, can be edited at the keyboard, reused instantly, and the machine can even diagnose its own faults. That architecture is also why CNC is more accurate over time — punched tape stretches and wears, degrading positioning, while memory does not. The higher initial cost of CNC pays off in flexibility and lower operating cost, which is why classic NC survives today mainly in history questions — the exam will almost always ask you to contrast exactly these rows of the comparison table.`,
   comparisonTable: {
     title: 'NC vs CNC',
     columns: ['Aspect', 'NC (Numerical Control)', 'CNC (Computer Numerical Control)'],

@@ -35,6 +35,12 @@ const UNIT3_TOPICS = [
     { q: 'Why do V-belts grip better than flat belts?', a: 'Because of the wedging action in the grooved pulley, which increases the effective friction force for a given tension.' },
     { q: 'Differentiate slip and creep in one line each.', a: 'Slip: relative motion from insufficient friction. Creep: small continuous movement from elastic stretching/relaxing of the belt.' }
   ],
+  applications: [
+    'Transmitting power between a motor and machinery over moderate centre distances.',
+    'Automotive auxiliary drives — alternator, fan and water-pump belts (V-belts).',
+    'Conveyor systems, textile machinery and workshop line-shafting (flat belts and ropes).'
+  ],
+  extraNotes: `A belt transmits power through the friction between belt and pulley, and that friction is set by the tension difference: the TIGHT side carries the driving pull, the SLACK side returns with less tension, and the power transmitted equals (T₁ − T₂) × belt speed. The friction available grows exponentially with the wrap angle (the belt-and-pulley equation, T₁/T₂ = e^(μθ)), which is why V-belts grip so much better — the wedging action multiplies the effective friction, and why a small pulley with a small wrap angle slips more. Slip (gross loss of grip, reduces the velocity ratio) and creep (tiny continuous elastic stretching, always present) are different phenomena but both slightly reduce the driven speed — for an exact ratio you must switch to a chain or gear drive.`,
   comparisonTable: {
     title: 'Flat Belt vs V-Belt',
     columns: ['Aspect', 'Flat Belt', 'V-Belt'],
@@ -69,7 +75,13 @@ const UNIT3_TOPICS = [
   quickCheck: [
     { q: 'Why is a chain drive called a "positive drive"?', a: 'Because the sprocket teeth mechanically engage the chain links, so there is no slip — unlike a friction-based belt drive.' },
     { q: 'When would wire rope be preferred over fibre rope?', a: 'For high power/heavy duty applications needing high strength, e.g. cranes and elevators.' }
-  ]
+  ],
+  applications: [
+    'Wire ropes: cranes, elevators, lifts, mine hoists and suspension bridges — anywhere strength and safety matter.',
+    'Roller chains: bicycles, motorcycles, camshaft drives and industrial conveyor machinery.',
+    'Silent (inverted-tooth) chains: high-speed, smooth and quiet power transmission in engines and machine tools.'
+  ],
+  extraNotes: `Chain drives earn the name "positive drive" because the sprocket teeth physically lock onto the chain links — there is no friction to lose, so the driven speed is exactly the tooth ratio, which is why camshafts and cam drives use chains while ordinary belt-driven accessories accept slight slip. The trade-off is real: chains are noisier and need lubrication, and they cannot bridge the long centre distances belts cover cheaply. Rope drives occupy the other extreme — a rope over a grooved pulley (or a set of ropes) can carry very heavy loads over long distances, with wire rope chosen over fibre rope whenever high strength, durability and safety are essential, as in cranes and elevators.`
 },
 
 // ---------------------------------------------------------------
@@ -96,6 +108,12 @@ const UNIT3_TOPICS = [
     { q: 'Which gear type is used for large speed reduction between non-intersecting, perpendicular shafts?', a: 'Worm gear.' },
     { q: 'Why are helical gears quieter than spur gears?', a: 'Their angled teeth engage gradually along the tooth face instead of all at once, reducing impact/noise.' }
   ],
+  applications: [
+    'Gearboxes and transmissions of every kind — cars, machine tools, industrial drives.',
+    'Bevel gears in automotive differentials (intersecting shafts at 90°).',
+    'Worm gears in hoists, lifts and steering systems, where a large speed reduction in one compact stage is needed.'
+  ],
+  extraNotes: `The gear pair's velocity ratio is set purely by tooth numbers: N₂/N₁ = T₁/T₂ (driver to driven), which is why gears give an EXACT ratio that belts and chains cannot match without positive engagement. The four types are chosen by shaft arrangement, and the shaft arrangement is dictated by the machine layout: parallel shafts → spur (cheap, simple) or helical (smooth, quiet, but pushes axially due to the angled teeth); intersecting shafts → bevel; non-intersecting perpendicular shafts → worm, whose screw-like action gives a huge reduction in one stage but at lower efficiency because of sliding contact. For the exam, the mapping shaft-arrangement → gear-type is the single highest-yield fact in this topic.`,
   comparisonTable: {
     title: 'Spur vs Helical, and Bevel vs Worm',
     columns: ['Gear Type', 'Shaft arrangement', 'Key feature'],
@@ -131,7 +149,13 @@ const UNIT3_TOPICS = [
   quickCheck: [
     { q: 'What is the main advantage of a multi-plate clutch over a single-plate clutch?', a: 'More friction surface area in a compact size, so it can transmit higher torque.' },
     { q: 'Why does a centrifugal clutch not need a pedal?', a: 'It engages automatically — spring-loaded shoes are thrown outward by centrifugal force as speed increases, gripping the drum on their own.' }
-  ]
+  ],
+  applications: [
+    'Single-plate friction clutches: standard automobile manual gearboxes.',
+    'Multi-plate clutches: motorcycles, racing cars and heavy vehicles where compact size must carry high torque.',
+    'Centrifugal clutches: mopeds, go-karts, lawnmowers and chainsaws — no pedal or lever needed.'
+  ],
+  extraNotes: `All friction clutches trade axial clamping force for torque capacity: the torque a clutch can transmit is proportional to the friction force between its surfaces (T = μ·F·r_eff), so designers raise capacity by adding surface area (multi-plate), using wedging geometry (cone), or letting centrifugal force do the clamping (centrifugal). The cone clutch achieves more torque than a flat plate for the same axial force because the normal force on the conical surface is amplified, but it drags when disengaging and wears faster — which is why it lost out to the single plate in cars. The centrifugal clutch engages automatically because the spring-loaded shoes fly outward as speed rises; below the engagement speed it is disengaged, so an engine can idle without driving the load — the reason small engines use it instead of a pedal.`
 },
 
 // ---------------------------------------------------------------
@@ -165,7 +189,13 @@ const UNIT3_TOPICS = [
     { q: 'Write the formula for direct stress.', a: 'σ = P/A (force divided by cross-sectional area).' },
     { q: 'Is strain a dimensioned or dimensionless quantity?', a: 'Dimensionless — it is a ratio of two lengths (or volumes).' },
     { q: 'Which type of stress causes one layer of material to slide over an adjacent layer?', a: 'Shear stress.' }
-  ]
+  ],
+  applications: [
+    'Designing shafts, beams, columns, bolts and rivets so that stresses stay below safe limits.',
+    'Checking machine components against failure before they are manufactured.',
+    'The foundation of all strength-of-materials analysis used in structural and machine design.'
+  ],
+  extraNotes: `Stress answers the question "how hard is the material being pulled or pushed, per unit area?" — two identical loads on different-size bars produce different stresses, which is why stress, not force, is the design quantity. The stress types pair with the strain types: tensile load → linear strain (elongation), compressive load → linear strain (shortening), shear load → shear strain (angular distortion), and uniform pressure from all sides → volumetric strain (volume change). Also be fluent in units: 1 N/mm² = 1 MPa, and 1 GPa = 1000 MPa — examiners love slipping a 100 kN force on a 50 mm diameter bar and expecting you to convert to N and mm² before dividing.`
 },
 
 // ---------------------------------------------------------------
@@ -210,7 +240,13 @@ const UNIT3_TOPICS = [
     { q: 'What physically begins to happen to the specimen at the ultimate stress point (E)?', a: 'Necking — a local reduction in cross-sectional area.' },
     { q: 'Between which two points does Hooke\'s Law hold exactly?', a: 'From the origin to the proportional limit (A).' },
     { q: 'Typical range of Poisson\'s ratio for metals?', a: '0.25 to 0.35.' }
-  ]
+  ],
+  applications: [
+    'Standard tensile testing of materials for quality control and material certification.',
+    'Choosing ductile vs brittle materials by reading their stress-strain curves.',
+    'Designing components that must deform without fracturing — the ductility margin before necking.'
+  ],
+  extraNotes: `Read the stress-strain curve as a story about what is happening inside the specimen. From O to A the material is perfectly elastic and linear (Hooke's Law); between A and B it is still elastic but the proportionality has gone; at C/D (mild steel only) it yields — plastic flow begins with a sudden drop in load; from D to E the material strain-hardens, resisting more until the peak E, where NECKING begins (the cross-section starts shrinking locally); beyond E the load actually FALLS while strain grows, until fracture at F. The classic exam trap: F appears lower than E only because both are computed on the ORIGINAL area — the true stress at fracture, based on the necked area, is actually the highest the material ever experienced. Ductile materials show a long plastic region; brittle materials (cast iron, glass) fracture almost immediately after the elastic line, with no yield point at all.`
 },
 
 // ---------------------------------------------------------------
@@ -236,7 +272,13 @@ const UNIT3_TOPICS = [
     { q: 'What does Bulk Modulus (K) relate?', a: 'Volumetric (hydrostatic) stress to volumetric strain.' },
     { q: 'Write the relation between E, G and μ.', a: 'E = 2G(1 + μ).' },
     { q: 'If E and G are known, how do you find μ?', a: 'Rearrange E = 2G(1+μ) → μ = (E/2G) − 1.' }
-  ]
+  ],
+  applications: [
+    'Selecting materials by stiffness: springs and torsion bars (G), pressure vessels (K), machine frames (E).',
+    'Finding any two elastic constants from the other two via the standard relationships.',
+    'Predicting deflection of beams, shafts and structures before building them.'
+  ],
+  extraNotes: `Each modulus measures a different kind of stiffness, and remembering WHICH stress-strain pair defines it is the whole game: E from tensile/compressive stress and linear strain (a bar being stretched), G from shear stress and shear strain (a shaft being twisted), K from hydrostatic stress and volumetric strain (a solid being squeezed from all sides, like a submarine hull). The relationships E = 2G(1+μ) and E = 3K(1−2μ) are derived by combining simple loading cases — you only need to use them, but knowing where they come from helps avoid sign errors. Real numbers give intuition: for steel, E ≈ 200 GPa, G ≈ 80 GPa, μ ≈ 0.3 — so if a problem gives you E and G and asks for μ, expect about 0.3 as a sanity check on your arithmetic.`
 },
 
 // ---------------------------------------------------------------
@@ -270,6 +312,12 @@ const UNIT3_TOPICS = [
     { q: 'How is creep different from ordinary plastic deformation?', a: 'Creep happens slowly over a long time under a CONSTANT sustained load, usually at elevated temperature, rather than from a single applied load.' },
     { q: 'Define resilience.', a: 'The capacity of a material to absorb energy elastically and release it fully when unloaded.' }
   ],
+  applications: [
+    'Material selection in design: springs (elastic), cutting tools (hard), pressure vessels (tough), structural steel (ductile + stiff).',
+    'Fatigue design of rotating shafts and connecting rods under repeated loading.',
+    'Creep-resistant alloy selection for turbine blades and boiler tubes operating at high temperature.'
+  ],
+  extraNotes: `The properties are easiest to remember as a design vocabulary: you choose a material because it is elastic (springs must return energy), hard (cutting tools must resist wear), tough (crane hooks must absorb shock), ductile (wires must draw without snapping), stiff (machine frames must not flex), resilient (springs store and release energy), and so on. The confusion-pairs dissolve once you attach each word to its loading condition: ductility vs malleability differ by tension vs compression; hardness vs toughness differ by local indentation vs whole-body impact; strength vs stiffness differ by max stress tolerated vs resistance to elastic bending. Fatigue and creep are the two sneaky failure modes that strike BELOW the yield stress — fatigue from repeated cyclic loading (shafts, gears) and creep from sustained load over time at high temperature (turbine blades) — which is why both are watched carefully in real design.`,
   comparisonTable: {
     title: 'The Five Classic Confusion-Pairs',
     columns: ['Pair', 'Property 1', 'Property 2'],

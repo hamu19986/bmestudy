@@ -8,7 +8,8 @@
     "dev": "npx --yes serve . -l 5173",
     "start": "npm run dev",
     "validate-content": "node scripts/validate-content.js",
-    "test": "npm run validate-content"
+    "smoke": "node scripts/smoke-test.js",
+    "test": "npm run validate-content && npm run smoke"
   },
   "keywords": [
     "mechanical-engineering",

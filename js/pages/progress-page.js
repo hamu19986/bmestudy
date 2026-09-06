@@ -12,6 +12,7 @@ ME.routes.progress = function () {
   const bookmarks = ME.store.getBookmarks();
   const examResults = ME.store.getExamResults();
   const mistakeCount = Object.keys(ME.store.getMistakes()).length;
+  const streak = ME.progress.streak();
 
   const html = `
     <h1>My Progress</h1>
@@ -23,6 +24,16 @@ ME.routes.progress = function () {
         ${[1, 2, 3, 4].map(function (n) {
           return `<div><div class="flex space-between"><span class="muted">Unit ${['', 'I', 'II', 'III', 'IV'][n]}</span><span>${unitPcts[n - 1]}%</span></div><div class="progress-bar"><span style="width:${unitPcts[n - 1]}%"></span></div></div>`;
         }).join('')}
+      </div>
+    </div>
+
+    <div class="card streak-card" style="margin-bottom:20px;">
+      <div class="flex space-between flex-wrap gap-8">
+        <div>
+          <h3 class="mt-0">🔥 Study streak</h3>
+          <p class="muted" style="margin-bottom:0;">${streak.current > 0 ? `<strong>${streak.current} day${streak.current === 1 ? '' : 's'}</strong> in a row${streak.activeToday ? ' — active today.' : (streak.alive ? ' — study today to keep the streak alive.' : ' — your streak reset; start a new one today.')}` : 'No streak yet — open a topic to start one.'} ${streak.best > 0 ? `Best: <strong>${streak.best} day${streak.best === 1 ? '' : 's'}</strong>.` : ''}</p>
+        </div>
+        <a class="btn btn-sm" href="#/units">Continue studying →</a>
       </div>
     </div>
 
@@ -85,7 +96,7 @@ ME.routes.progress = function () {
 
   document.getElementById('reset-all').addEventListener('click', function () {
     if (!confirm('This will permanently erase all your saved progress on this device. Continue?')) return;
-    ['topic-status', 'bookmarks', 'attempt-log', 'mistakes', 'exam-results', 'flash-progress', 'topic-visits'].forEach(function (k) {
+    ['topic-status', 'bookmarks', 'attempt-log', 'mistakes', 'exam-results', 'flash-progress', 'topic-visits', 'streak'].forEach(function (k) {
       ME.store.remove(k);
     });
     ME.render();

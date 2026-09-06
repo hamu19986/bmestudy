@@ -143,11 +143,11 @@ function renderExamTaking() {
       <span class="timer-pill" id="exam-timer">--:--:--</span>
     </div>
     <div class="filters">
-      <a class="btn btn-sm" href="#q1-section">Q1</a>
-      <a class="btn btn-sm" href="#unit1-section">Unit I</a>
-      <a class="btn btn-sm" href="#unit2-section">Unit II</a>
-      <a class="btn btn-sm" href="#unit3-section">Unit III</a>
-      <a class="btn btn-sm" href="#unit4-section">Unit IV</a>
+      <a class="btn btn-sm" href="#/exam/take#q1-section">Q1</a>
+      <a class="btn btn-sm" href="#/exam/take#unit1-section">Unit I</a>
+      <a class="btn btn-sm" href="#/exam/take#unit2-section">Unit II</a>
+      <a class="btn btn-sm" href="#/exam/take#unit3-section">Unit III</a>
+      <a class="btn btn-sm" href="#/exam/take#unit4-section">Unit IV</a>
       <span class="tag" id="running-score">Score so far: ${totalScore()} / ${maxTotal}</span>
     </div>
 

@@ -72,6 +72,17 @@ function renderTypesList(types) {
   if (!types || !types.length) return '';
   return '<ul>' + types.map(function (t) { return '<li>' + ME.helpers.escapeHtml(t) + '</li>'; }).join('') + '</ul>';
 }
+function renderComparisonTable(table) {
+  if (!table || !table.rows || !table.rows.length) return '';
+  const cols = table.columns || [];
+  return `<table class="comparison-table"><thead><tr>${cols.map(function (c) { return '<th>' + ME.helpers.escapeHtml(c) + '</th>'; }).join('')}</tr></thead><tbody>
+    ${table.rows.map(function (row) { return '<tr>' + row.map(function (cell) { return '<td>' + ME.helpers.escapeHtml(cell) + '</td>'; }).join('') + '</tr>'; }).join('')}
+  </tbody></table>`;
+}
+function renderStringList(list) {
+  if (!list || !list.length) return '';
+  return '<ul class="nice-list">' + list.map(function (item) { return '<li>' + ME.helpers.escapeHtml(item) + '</li>'; }).join('') + '</ul>';
+}
 
 ME.routes.topic = function (parsed) {
   const id = parsed.parts[1];
@@ -83,6 +94,16 @@ ME.routes.topic = function (parsed) {
   const status = ME.store.getTopicStatus(id);
   const isBookmarked = ME.store.getBookmarks().includes(id);
   const relatedQs = ME.data.questions.filter(function (q) { return q.topic === id; });
+
+  // Prev / next topic navigation within the unit (syllabus order).
+  const unitTopics = unitObj ? unitObj.topics : [];
+  const tIdx = unitTopics.findIndex(function (t) { return t.id === id; });
+  const prevTopic = tIdx > 0 ? unitTopics[tIdx - 1] : null;
+  const nextTopic = tIdx >= 0 && tIdx < unitTopics.length - 1 ? unitTopics[tIdx + 1] : null;
+  const topicNavHtml = (prevTopic || nextTopic) ? `<nav class="topic-nav" aria-label="Topic navigation">
+    ${prevTopic ? `<a class="card card-link topic-nav-prev" href="#/topic/${prevTopic.id}"><span class="muted">← Previous topic</span><strong>${ME.helpers.escapeHtml(prevTopic.title)}</strong></a>` : '<span></span>'}
+    ${nextTopic ? `<a class="card card-link topic-nav-next" href="#/topic/${nextTopic.id}"><span class="muted">Next topic →</span><strong>${ME.helpers.escapeHtml(nextTopic.title)}</strong></a>` : '<span></span>'}
+  </nav>` : '';
 
   let sectionNum = 0;
   function section(title, bodyHtml) {
@@ -123,6 +144,9 @@ ME.routes.topic = function (parsed) {
       <p style="margin-top:10px;"><strong>What to draw in the exam:</strong> ${ME.helpers.escapeHtml(topic.diagram.description || '')}</p>
       ${topic.diagram.svg ? `<a class="btn btn-sm" href="#/diagram/${id}">Practice this diagram (blank → labelled) →</a>` : ''}` : '')}
     ${section('Formulae', renderFormulas(topic.formulas))}
+    ${section('Where it is used (applications)', renderStringList(topic.applications))}
+    ${section('Comparison table', topic.comparisonTable ? `<div class="card table-card">${renderComparisonTable(topic.comparisonTable)}</div>` : '')}
+    ${section('Deeper dive / extra notes', topic.extraNotes ? `<div class="extra-notes">${ME.helpers.para(topic.extraNotes)}</div>` : '')}
     ${section('Exam tip', topic.examTip ? `<div class="exam-tip">💡 ${ME.helpers.escapeHtml(topic.examTip)}</div>` : '')}
     ${section('Common mistake', topic.commonMistake ? `<div class="mistake-box">⚠️ ${ME.helpers.escapeHtml(topic.commonMistake)}</div>` : '')}
     ${section('Self-check', topic.quickCheck && topic.quickCheck.length ? `<ul class="quick-check">${topic.quickCheck.map(function (qc) {
@@ -133,6 +157,8 @@ ME.routes.topic = function (parsed) {
       <h2>Practice questions on this topic</h2>
       ${relatedQs.length ? `<p class="muted">${relatedQs.length} question(s) in the bank tagged to this topic.</p><a class="btn btn-primary" href="#/questions?topic=${id}">Practice these questions →</a>` : `<p class="muted">No question-bank items are tagged to this exact topic yet — try the Unit ${topic.unit} question set.</p><a class="btn" href="#/questions?unit=${topic.unit}">Practice Unit ${topic.unit} questions →</a>`}
     </div>
+
+    ${topicNavHtml}
   `;
   ME.setView(html);
 

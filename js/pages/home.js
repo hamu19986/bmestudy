@@ -6,6 +6,7 @@ ME.routes.home = function () {
   const next = ME.progress.recommendedNext();
   const weak = ME.progress.weakestTopics(3);
   const recent = ME.progress.recentTopics(3);
+  const streak = ME.progress.streak();
 
   const quickLinks = [
     ['#/units', '📘', 'Study by Unit'],
@@ -55,6 +56,16 @@ ME.routes.home = function () {
           const t = ME.data.topicById[r.id];
           return `<li><a href="#/topic/${r.id}">${t ? ME.helpers.escapeHtml(t.title) : r.id}</a></li>`;
         }).join('')}</ul>` : `<p class="muted">You haven't opened any topics yet — <a href="#/units">start with Unit I</a>.</p>`}
+      </div>
+    </div>
+
+    <div class="card streak-card">
+      <div class="flex space-between flex-wrap gap-8">
+        <div>
+          <h3 class="mt-0">🔥 Study streak</h3>
+          <p class="muted" style="margin-bottom:0;">${streak.current > 0 ? `You've studied <strong>${streak.current} day${streak.current === 1 ? '' : 's'}</strong> in a row${streak.activeToday ? ' — keep it going today!' : (streak.alive ? ' — study today to keep it alive!' : ' — start a new streak today!')}` : 'Open any topic and your daily streak starts.'} ${streak.best > 0 ? `Best streak: <strong>${streak.best} day${streak.best === 1 ? '' : 's'}</strong>.` : ''}</p>
+        </div>
+        <a class="btn" href="#/progress">Full progress →</a>
       </div>
     </div>
   `;

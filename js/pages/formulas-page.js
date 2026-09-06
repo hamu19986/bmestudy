@@ -30,7 +30,7 @@ ME.routes.formulas = function (parsed) {
     </div>
 
     <div class="filters" style="margin-bottom:20px;">
-      ${ME.data.formulas.map(function (s) { return `<a class="btn btn-sm" href="#sec-${ME.helpers.escapeHtml(s.section).replace(/\s+/g, '-')}">${ME.helpers.escapeHtml(s.section)}</a>`; }).join('')}
+      ${ME.data.formulas.map(function (s) { return `<a class="btn btn-sm" href="#/formulas#sec-${ME.helpers.escapeHtml(s.section).replace(/\s+/g, '-')}">${ME.helpers.escapeHtml(s.section)}</a>`; }).join('')}
     </div>
 
     <div id="formula-list">

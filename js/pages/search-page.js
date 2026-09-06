@@ -22,7 +22,9 @@ ME.routes.search = function (parsed) {
     });
     ME.data.formulas.forEach(function (sec) {
       sec.items.forEach(function (f) {
-        if ((f.formula + ' ' + f.meaning).toLowerCase().includes(needle)) formulaResults.push(f);
+        if ((f.formula + ' ' + (f.meaning || '')).toLowerCase().includes(needle)) {
+          formulaResults.push(Object.assign({}, f, { section: sec.section }));
+        }
       });
     });
   }
@@ -36,7 +38,7 @@ ME.routes.search = function (parsed) {
       <input type="text" id="global-search" placeholder="e.g. lathe, entropy, Pelton" value="${ME.helpers.escapeHtml(query)}">
     </div>
     ${!needle ? '<p class="muted">Type something above to search across the whole app.</p>' : `
-      <p class="muted">${totalResults} result(s) for "${ME.helpers.escapeHtml(query)}"</p>
+      <p class="muted">${totalResults} result(s) for &ldquo;${ME.helpers.escapeHtml(query)}&rdquo;</p>
 
       ${topicResults.length ? `<div class="topic-section"><h2>📘 Topics (${topicResults.length})</h2><div class="grid grid-2">${topicResults.map(function (t) {
         return `<a class="card card-link" href="#/topic/${t.id}">${ME.helpers.unitTag(t.unit)}<h3>${ME.helpers.escapeHtml(t.title)}</h3><p class="muted">${ME.helpers.escapeHtml(t.summary || '')}</p></a>`;
@@ -49,11 +51,12 @@ ME.routes.search = function (parsed) {
       }).join('')}</ul><a class="btn" href="#/flashcards">Open Flashcards →</a></div>` : ''}
 
       ${glossaryResults.length ? `<div class="topic-section"><h2>🔤 Glossary (${glossaryResults.length})</h2>${glossaryResults.map(function (g) {
-        return `<div class="glossary-term"><h3>${ME.helpers.escapeHtml(g.term)}</h3><p>${ME.helpers.escapeHtml(g.simple)}</p></div>`;
+        return `<a class="glossary-term" href="#/glossary#letter-${g.term[0].toUpperCase()}" style="text-decoration:none;"><h3>${ME.helpers.escapeHtml(g.term)}</h3><p>${ME.helpers.escapeHtml(g.simple)}</p></a>`;
       }).join('')}</div>` : ''}
 
       ${formulaResults.length ? `<div class="topic-section"><h2>∑ Formulas (${formulaResults.length})</h2>${formulaResults.map(function (f) {
-        return `<div class="formula-box">${ME.helpers.escapeHtml(f.formula)}<div class="muted">${ME.helpers.escapeHtml(f.meaning || '')}</div></div>`;
+        const secSlug = ME.helpers.escapeHtml(f.section).replace(/\s+/g, '-');
+        return `<a class="formula-box" href="#/formulas#sec-${secSlug}" style="text-decoration:none;border-left-color:var(--accent);margin-bottom:8px;"><strong>${ME.helpers.escapeHtml(f.formula)}</strong><div class="muted" style="font-size:0.85rem;">${ME.helpers.escapeHtml(f.meaning || '')}</div></a>`;
       }).join('')}</div>` : ''}
 
       ${totalResults === 0 ? '<div class="empty-state"><h2>No results found.</h2><p class="muted">Try a shorter or more general keyword.</p></div>' : ''}

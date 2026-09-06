@@ -15,8 +15,9 @@ pattern, and track their weak areas — all from this one app.
   refrigeration & air-conditioning, hydraulic turbines & pumps, power
   transmission, stress & strain, mechanical properties, manufacturing systems,
   NC/CNC), each with a beginner explanation, working principle, parts/types,
-  formulas, labelled diagrams (inline SVG), exam tips, common mistakes and a
-  quick self-check.
+  formulas, labelled diagrams (inline SVG), **real-world applications**, a
+  **deeper-dive theory section**, comparison tables, exam tips, common mistakes,
+  a quick self-check, and **previous/next topic navigation**.
 - **115 question-bank items** (MCQ, short-answer, long-answer, numerical) —
   every unit has both low-mark items (for Q1) and multiple high-mark items
   (for the "one of two" per-unit exam sections).
@@ -24,13 +25,16 @@ pattern, and track their weak areas — all from this one app.
   following the real pattern: Q1 compulsory (6 parts covering all four units)
   + 2 choice-questions per unit (attempt 1 of each) = 5 questions, 50 marks,
   with a 3-hour countdown, self-marking, and unit/topic-wise result analysis.
-- **54 flashcards**, a **39-term glossary**, and a **26-entry formula sheet**
-  organised by section (Machine Tools, Thermodynamics, Refrigeration &
-  Hydraulics, Power Transmission, Stress & Strain).
+- **54 flashcards**, a **97-term glossary**, and a **49-entry formula sheet**
+  organised by section (Machine Tools, Thermodynamics, Refrigeration & A/C,
+  Hydraulics — Turbines & Pumps, Power Transmission, Stress & Strain), every
+  entry with symbols, units and a common-mistake note.
 - **Smart revision modes** (quick / 1-day / 3-day / 7-day / exam-eve), a
   syllabus **checklist** with per-topic mastery status, a **mistake bank**
   that stores every wrong answer for targeted retrying, a **progress
-  dashboard**, and full-text **search** across topics, questions and glossary.
+  dashboard** with a daily **study-streak tracker**, full-text **search**
+  across topics, questions and glossary, and **keyboard shortcuts** on the
+  flashcard deck (←/→ navigate, Space flip, 1/2/3 rate).
 - All progress (topic status, quiz/exam history, flashcard levels, bookmarks,
   mistakes) is saved locally in the browser via `localStorage` — no backend,
   no account, works offline once loaded.
@@ -75,6 +79,8 @@ js/pages/                 One file per route (ME.routes.<name> = function(){...}
   exam-page.js, revision-page.js, checklist-page.js, mistakes-page.js,
   progress-page.js, search-page.js, glossary-page.js
 scripts/validate-content.js   Content-completeness checker (see below)
+scripts/smoke-test.js         Headless smoke test — loads the app with a stubbed
+                               DOM and renders every route, catching runtime errors
 .github/workflows/deploy.yml  CI: validate, then deploy to GitHub Pages
 ```
 
@@ -133,6 +139,16 @@ This loads every content data file (no browser needed) and checks:
 It exits non-zero (and lists exactly what's missing) if anything fails, so
 it's safe to run in CI — which is exactly what the GitHub Actions workflow
 does before every deploy.
+
+```bash
+npm run smoke
+```
+
+Loads every data, core and page script into a stubbed DOM (no browser
+needed) and renders every route — home, units, topics, question bank,
+flashcards, formulas, mock exam, revision modes, checklist, mistakes,
+progress, search, glossary and diagram practice — failing on any runtime
+error. `npm test` runs both the content validator and the smoke test.
 
 ## Adding new topics or questions
 
