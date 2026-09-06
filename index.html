@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Basics of Mechanical Engineering (25ESC-ME-103H) — Study & Exam Prep</title>
-<meta name="description" content="A complete self-study and exam-preparation platform for Basics of Mechanical Engineering (25ESC-ME-103H): notes, diagrams, formulas, flashcards, a question bank, mock exams and a smart revision system covering Units I–IV.">
+<title>B.Tech CSE Semester I — Academic OS (Study · Practice · Revise · Mock Exams)</title>
+<meta name="description" content="A complete study and exam-preparation platform for B.Tech CSE Semester I (MDU H-Scheme 2025-26): Maths-I, Physics-I, PPS, EGD, BME, English plus PPS/Physics/English labs — notes, question banks, flashcards, mock exams, progress tracking and smart revision.">
 <meta name="theme-color" content="#1f6f5c">
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="Basics of Mechanical Engineering — Study & Exam Prep (25ESC-ME-103H)">
-<meta property="og:description" content="Learn, practice, revise and mock-test the entire 25ESC-ME-103H syllabus in one offline-friendly web app.">
+<meta property="og:title" content="B.Tech CSE Semester I — Academic OS">
+<meta property="og:description" content="Learn, practice, revise and mock-test all nine Semester-I subjects in one offline-friendly web app.">
 
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%231f6f5c'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='white' font-family='Georgia,serif'%3E%E2%9A%99%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%231f6f5c'/%3E%3Ctext x='50' y='70' font-size='52' text-anchor='middle' fill='white' font-family='Georgia,serif'%3E%F0%9F%8E%93%3C/text%3E%3C/svg%3E">
 
 <link rel="stylesheet" href="css/style.css">
 </head>
@@ -19,12 +19,12 @@
 
 <header id="app-header">
   <button id="menu-toggle" class="btn btn-sm" aria-label="Toggle navigation menu">☰</button>
-  <a href="#/home" class="brand">Basics of Mechanical Engineering
-    <small>25ESC-ME-103H &middot; Study &amp; Exam Prep</small>
+  <a href="#/home" class="brand">CSE Semester I — Academic OS
+    <small>9 subjects &middot; study &middot; practice &middot; revise &middot; mock exams</small>
   </a>
   <div class="spacer"></div>
   <form id="search-form" role="search">
-    <input type="search" id="search-box" placeholder="Search lathe, entropy, Pelton…" aria-label="Search the whole app">
+    <input type="search" id="search-box" placeholder="Search pointer, entropy, Pelton…" aria-label="Search the whole app">
   </form>
   <button id="theme-toggle" class="btn btn-sm" aria-label="Toggle dark mode">🌙</button>
 </header>
@@ -38,24 +38,84 @@
 </div>
 
 <nav id="bottom-nav" aria-label="Mobile navigation"></nav>
+<div id="toast-root" aria-live="polite"></div>
 
-<!-- ================= DATA (order-independent) ================= -->
-<script src="js/data/unit1.js"></script>
-<script src="js/data/unit2.js"></script>
-<script src="js/data/unit3.js"></script>
-<script src="js/data/unit4.js"></script>
-<script src="js/data/questions.js"></script>
-<script src="js/data/flashcards.js"></script>
-<script src="js/data/formulas.js"></script>
-<script src="js/data/glossary.js"></script>
+<!-- ============================================================
+     LOAD ORDER MATTERS:
+     1. courses.js (registry)   2. all data files
+     3. core (aggregates data)  4. pages (register routes)
+     5. boot
+     ============================================================ -->
+
+<!-- ================= COURSE REGISTRY ================= -->
+<script src="js/data/courses.js"></script>
+
+<!-- ================= DATA — BME (migrated original) ================= -->
+<script src="js/data/bme/unit1.js"></script>
+<script src="js/data/bme/unit2.js"></script>
+<script src="js/data/bme/unit3.js"></script>
+<script src="js/data/bme/unit4.js"></script>
+<script src="js/data/bme/questions.js"></script>
+<script src="js/data/bme/flashcards.js"></script>
+<script src="js/data/bme/formulas.js"></script>
+<script src="js/data/bme/glossary.js"></script>
+
+<!-- ================= DATA — Mathematics-I (content pending) ================= -->
+<script src="js/data/maths/topics.js"></script>
+<script src="js/data/maths/questions.js"></script>
+<script src="js/data/maths/flashcards.js"></script>
+<script src="js/data/maths/formulas.js"></script>
+<script src="js/data/maths/glossary.js"></script>
+
+<!-- ================= DATA — Physics-I (content pending) ================= -->
+<script src="js/data/physics/topics.js"></script>
+<script src="js/data/physics/questions.js"></script>
+<script src="js/data/physics/flashcards.js"></script>
+<script src="js/data/physics/formulas.js"></script>
+<script src="js/data/physics/glossary.js"></script>
+
+<!-- ================= DATA — PPS (content pending) ================= -->
+<script src="js/data/pps/topics.js"></script>
+<script src="js/data/pps/questions.js"></script>
+<script src="js/data/pps/flashcards.js"></script>
+<script src="js/data/pps/glossary.js"></script>
+
+<!-- ================= DATA — EGD (content pending) ================= -->
+<script src="js/data/egd/topics.js"></script>
+<script src="js/data/egd/questions.js"></script>
+<script src="js/data/egd/flashcards.js"></script>
+
+<!-- ================= DATA — English (content pending) ================= -->
+<script src="js/data/english/topics.js"></script>
+<script src="js/data/english/questions.js"></script>
+<script src="js/data/english/flashcards.js"></script>
+
+<!-- ================= DATA — PPS Lab (content pending) ================= -->
+<script src="js/data/pps-lab/experiments.js"></script>
+<script src="js/data/pps-lab/questions.js"></script>
+<script src="js/data/pps-lab/flashcards.js"></script>
+
+<!-- ================= DATA — Physics Lab (content pending) ================= -->
+<script src="js/data/physics-lab/experiments.js"></script>
+<script src="js/data/physics-lab/questions.js"></script>
+<script src="js/data/physics-lab/flashcards.js"></script>
+
+<!-- ================= DATA — English Lab (content pending) ================= -->
+<script src="js/data/english-lab/modules.js"></script>
+<script src="js/data/english-lab/questions.js"></script>
+<script src="js/data/english-lab/flashcards.js"></script>
+
+<!-- ================= DATA — semester-wide syllabus map ================= -->
 <script src="js/data/syllabus.js"></script>
 
-<!-- ================= CORE (must load after data, before pages) ================= -->
+<!-- ================= CORE (after ALL data, before pages) ================= -->
 <script src="js/core/app-core.js"></script>
 <script src="js/core/progress-calc.js"></script>
+<script src="js/core/study-plan.js"></script>
 
 <!-- ================= PAGES / ROUTES ================= -->
 <script src="js/pages/home.js"></script>
+<script src="js/pages/semester.js"></script>
 <script src="js/pages/units.js"></script>
 <script src="js/pages/questions-page.js"></script>
 <script src="js/pages/flashcards-page.js"></script>
@@ -65,6 +125,7 @@
 <script src="js/pages/checklist-page.js"></script>
 <script src="js/pages/mistakes-page.js"></script>
 <script src="js/pages/progress-page.js"></script>
+<script src="js/pages/plan-page.js"></script>
 <script src="js/pages/search-page.js"></script>
 <script src="js/pages/glossary-page.js"></script>
 

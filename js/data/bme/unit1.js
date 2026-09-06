@@ -3,11 +3,12 @@
    25ESC-ME-103H
    ============================================================ */
 
-const UNIT1_TOPICS = [
+const BME_UNIT1_TOPICS = [
 
 // ---------------------------------------------------------------
 {
   id: 'u1-intro-machinetools',
+  course: 'bme',
   unit: 1,
   category: 'Machine Tools',
   title: 'Introduction to Machine Tools',
@@ -39,6 +40,7 @@ const UNIT1_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u1-lathe',
+  course: 'bme',
   unit: 1,
   category: 'Machine Tools',
   title: 'Lathe Machine',
@@ -109,6 +111,7 @@ const UNIT1_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u1-shaper',
+  course: 'bme',
   unit: 1,
   category: 'Machine Tools',
   title: 'Shaper Machine',
@@ -151,6 +154,7 @@ const UNIT1_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u1-planer',
+  course: 'bme',
   unit: 1,
   category: 'Machine Tools',
   title: 'Planer Machine',
@@ -195,6 +199,7 @@ const UNIT1_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u1-milling',
+  course: 'bme',
   unit: 1,
   category: 'Machine Tools',
   title: 'Milling Machine',
@@ -253,6 +258,7 @@ const UNIT1_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u1-drilling',
+  course: 'bme',
   unit: 1,
   category: 'Machine Tools',
   title: 'Drilling Machine',
@@ -305,6 +311,7 @@ const UNIT1_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u1-slotter',
+  course: 'bme',
   unit: 1,
   category: 'Machine Tools',
   title: 'Slotter (Slotting Machine)',
@@ -341,6 +348,7 @@ const UNIT1_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u1-metalcutting',
+  course: 'bme',
   unit: 1,
   category: 'Machine Tools',
   title: 'Introduction to Metal Cutting',
@@ -384,6 +392,7 @@ const UNIT1_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u1-thermo-basics',
+  course: 'bme',
   unit: 1,
   category: 'Thermodynamics',
   title: 'System, Boundary, Surroundings & Properties',
@@ -427,6 +436,7 @@ const UNIT1_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u1-work-heat',
+  course: 'bme',
   unit: 1,
   category: 'Thermodynamics',
   title: 'Work and Heat',
@@ -461,6 +471,7 @@ const UNIT1_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u1-zeroth-law',
+  course: 'bme',
   unit: 1,
   category: 'Thermodynamics',
   title: 'Temperature & Zeroth Law',
@@ -486,6 +497,7 @@ const UNIT1_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u1-first-law',
+  course: 'bme',
   unit: 1,
   category: 'Thermodynamics',
   title: 'First Law, Internal Energy & Enthalpy',
@@ -518,6 +530,7 @@ const UNIT1_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u1-second-law',
+  course: 'bme',
   unit: 1,
   category: 'Thermodynamics',
   title: 'Second Law: Kelvin-Planck & Clausius Statements',
@@ -544,6 +557,7 @@ const UNIT1_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u1-entropy-third-law',
+  course: 'bme',
   unit: 1,
   category: 'Thermodynamics',
   title: 'Entropy & Third Law',
@@ -574,6 +588,7 @@ const UNIT1_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u1-thermo-numericals',
+  course: 'bme',
   unit: 1,
   category: 'Thermodynamics',
   title: 'Solving Thermodynamics Numericals',

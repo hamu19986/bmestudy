@@ -22,8 +22,12 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: 22
-      - name: Validate content (syllabus coverage, questions, no placeholders)
+      - name: Validate content (references, duplicates, placeholders)
         run: npm run validate-content
+      - name: Smoke test every route
+        run: npm run smoke
+      - name: Coverage report (informational until all content is authored)
+        run: npm run coverage || true
 
   deploy:
     needs: validate

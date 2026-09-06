@@ -3,11 +3,12 @@
    25ESC-ME-103H
    ============================================================ */
 
-const UNIT3_TOPICS = [
+const BME_UNIT3_TOPICS = [
 
 // ---------------------------------------------------------------
 {
   id: 'u3-belt-drives',
+  course: 'bme',
   unit: 3,
   category: 'Power Transmission',
   title: 'Belt Drives',
@@ -57,6 +58,7 @@ const UNIT3_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u3-rope-chain-drives',
+  course: 'bme',
   unit: 3,
   category: 'Power Transmission',
   title: 'Rope Drives & Chain Drives',
@@ -87,6 +89,7 @@ const UNIT3_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u3-gear-drives',
+  course: 'bme',
   unit: 3,
   category: 'Power Transmission',
   title: 'Gear Drives',
@@ -129,6 +132,7 @@ const UNIT3_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u3-clutches',
+  course: 'bme',
   unit: 3,
   category: 'Power Transmission',
   title: 'Clutches',
@@ -161,6 +165,7 @@ const UNIT3_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u3-stress-strain-intro',
+  course: 'bme',
   unit: 3,
   category: 'Stress & Strain',
   title: 'Stress, Strain & Their Types',
@@ -201,6 +206,7 @@ const UNIT3_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u3-poisson-stress-strain-diagram',
+  course: 'bme',
   unit: 3,
   category: 'Stress & Strain',
   title: "Poisson's Ratio & the Stress-Strain Diagram",
@@ -252,6 +258,7 @@ const UNIT3_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u3-hooke-elastic-constants',
+  course: 'bme',
   unit: 3,
   category: 'Stress & Strain',
   title: "Hooke's Law & Elastic Constants",
@@ -284,6 +291,7 @@ const UNIT3_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u3-mechanical-properties',
+  course: 'bme',
   unit: 3,
   category: 'Stress & Strain',
   title: 'Mechanical Properties of Metals',

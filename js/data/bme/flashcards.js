@@ -63,5 +63,25 @@ const FLASHCARDS = [
   { id: 'fc51', unit: 4, category: 'Manufacturing & NC', front: 'Contouring control — used for?', back: 'Complex curved/angular profiles via simultaneous coordinated multi-axis motion, e.g. die/cam milling.' },
   { id: 'fc52', unit: 4, category: 'Manufacturing & NC', front: 'Open-loop vs closed-loop NC', back: 'Open-loop: no feedback on actual position. Closed-loop: uses encoders/transducers to verify & correct position.' },
   { id: 'fc53', unit: 4, category: 'Manufacturing & NC', front: 'NC vs CNC: program storage', back: 'NC: punched tape, re-read every job. CNC: stored in computer memory, instantly recalled/edited.' },
-  { id: 'fc54', unit: 4, category: 'Manufacturing & NC', front: 'NC vs CNC: diagnostics', back: 'NC has none. CNC has built-in self-diagnostics.' }
+  { id: 'fc54', unit: 4, category: 'Manufacturing & NC', front: 'NC vs CNC: diagnostics', back: 'NC has none. CNC has built-in self-diagnostics.' },
+  // Added coverage — Unit I
+  { id: 'fc55', unit: 1, category: 'Machine Tools', front: 'Shaper vs Planer vs Slotter — what reciprocates where?', back: 'Shaper: the TOOL reciprocates (small work). Planer: the WORKPIECE reciprocates (large work). Slotter: the tool reciprocates VERTICALLY (internal profiles).' },
+  { id: 'fc56', unit: 1, category: 'Machine Tools', front: 'Name the three chip types', back: 'Continuous (ductile + high speed, good finish), Discontinuous (brittle material or low speed), Continuous with built-up edge (ductile + friction welding onto tool face).' },
+  { id: 'fc57', unit: 1, category: 'Thermodynamics', front: 'Intensive vs extensive property — examples?', back: 'Intensive: independent of mass (pressure, temperature, density). Extensive: depends on mass (volume, internal energy, enthalpy).' },
+  { id: 'fc58', unit: 1, category: 'Thermodynamics', front: 'Classify: isobaric, isochoric, isothermal, adiabatic', back: 'Isobaric: p constant. Isochoric: V constant (no pdV work). Isothermal: T constant. Adiabatic: no heat transfer (δQ = 0).' },
+  { id: 'fc59', unit: 1, category: 'Thermodynamics', front: 'Adiabatic vs isothermal — which is which on the p-V diagram?', back: 'The adiabatic curve is STEEPER than the isothermal through the same point (pV^γ falls faster than pV).' },
+  // Added coverage — Unit II
+  { id: 'fc60', unit: 2, category: 'Refrigeration', front: 'DBT vs WBT vs DPT', back: 'Dry-bulb: ordinary air temperature. Wet-bulb: thermometer with wet wick (evaporative cooling). Dew point: temperature at which air becomes saturated and condensation starts.' },
+  { id: 'fc61', unit: 2, category: 'Refrigeration', front: 'When is DPT = WBT = DBT?', back: 'At 100% relative humidity (saturated air) — all three temperatures coincide.' },
+  { id: 'fc62', unit: 2, category: 'Turbines & Pumps', front: 'Turbine selection by specific speed (N_s)', back: 'Low N_s: Pelton (high head). Medium N_s: Francis (medium head). High N_s: Kaplan (low head, high discharge).' },
+  { id: 'fc63', unit: 2, category: 'Turbines & Pumps', front: 'What does a draft tube do?', back: 'Recovers kinetic energy at the runner exit as pressure and lets a reaction turbine sit above the tailrace without losing head.' },
+  { id: 'fc64', unit: 2, category: 'Turbines & Pumps', front: 'What is priming a pump?', back: 'Filling the casing and suction pipe with water before starting a centrifugal pump — it cannot create enough suction on air alone.' },
+  // Added coverage — Unit III
+  { id: 'fc65', unit: 3, category: 'Power Transmission', front: 'Belt vs chain vs gear — one-line each', back: 'Belt: friction, long centres, allows slip. Chain: positive engagement, no slip, needs lubrication. Gear: positive, compact, any shaft arrangement, most precise.' },
+  { id: 'fc66', unit: 3, category: 'Power Transmission', front: 'Which gear pair for non-intersecting perpendicular shafts?', back: 'Worm and worm wheel — also gives a very large speed reduction in one stage.' },
+  { id: 'fc67', unit: 3, category: 'Stress & Strain', front: 'Volumetric strain under uniaxial stress', back: 'ΔV/V = (σ/E)(1 − 2μ) — a stretched bar usually gets thinner, so volume change is smaller than linear strain suggests.' },
+  // Added coverage — Unit IV
+  { id: 'fc68', unit: 4, category: 'Manufacturing & NC', front: 'Match: prototype shop / seasonal clothing / car assembly / oil refinery', back: 'Job shop / Batch / Mass / Continuous-flow production — variety falls and volume rises along that order.' },
+  { id: 'fc69', unit: 4, category: 'Manufacturing & NC', front: 'Straight-cut NC control — used for?', back: 'Parallel to machine axes only, at a controlled feed rate — e.g. square shoulder milling, simple stepped cuts.' },
+  { id: 'fc70', unit: 4, category: 'Manufacturing & NC', front: 'Why is CNC more flexible than NC?', back: 'Programs live in computer memory: edit at the machine, store many programs, add diagnostics — NC re-reads punched tape for every job.' }
 ];

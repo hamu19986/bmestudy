@@ -3,11 +3,12 @@
    25ESC-ME-103H
    ============================================================ */
 
-const UNIT4_TOPICS = [
+const BME_UNIT4_TOPICS = [
 
 // ---------------------------------------------------------------
 {
   id: 'u4-manufacturing-systems',
+  course: 'bme',
   unit: 4,
   category: 'Manufacturing Systems',
   title: 'Manufacturing Systems: Job Shop, Batch, Mass & Continuous',
@@ -40,6 +41,7 @@ const UNIT4_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u4-nc-fundamentals',
+  course: 'bme',
   unit: 4,
   category: 'Numerical Control',
   title: 'Fundamentals of Numerical Control (NC)',
@@ -89,6 +91,7 @@ const UNIT4_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u4-nc-classification',
+  course: 'bme',
   unit: 4,
   category: 'Numerical Control',
   title: 'Classification of NC Systems',
@@ -122,6 +125,7 @@ const UNIT4_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u4-nc-vs-cnc',
+  course: 'bme',
   unit: 4,
   category: 'Numerical Control',
   title: 'NC vs CNC',

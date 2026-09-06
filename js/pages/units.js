@@ -1,16 +1,21 @@
-/* ---------------- Units overview ---------------- */
+/* ---------------- All subjects overview ---------------- */
 ME.routes.units = function () {
+  const overview = ME.progress.subjectsOverview();
   const html = `
-    <h1>Study by Unit</h1>
-    <p class="muted">Everything in the official syllabus, organised the way it will be examined.</p>
+    <h1>All Subjects</h1>
+    <p class="muted">The complete B.Tech CSE Semester-I curriculum (MDU H-Scheme 2025-26, Group-A) — 21 credits across 6 theory courses and 3 labs.</p>
     <div class="grid grid-2">
-      ${ME.data.units.map(function (u) {
-        const pct = ME.progress.unitCompletionPct(u.n);
-        return `<a class="card card-link" href="#/unit/${u.n}">
-          <div class="flex space-between" style="margin-bottom:6px;">${ME.helpers.unitTag(u.n)}<span class="muted">${u.topics.length} topics</span></div>
-          <h3>${u.title} — ${ME.helpers.escapeHtml(u.subtitle)}</h3>
-          <div class="progress-bar" style="margin-top:8px;"><span style="width:${pct}%"></span></div>
-          <div class="muted" style="margin-top:4px;font-size:0.82rem;">${pct}% complete</div>
+      ${overview.map(function (o) {
+        const c = o.course;
+        return `<a class="card card-link" href="#/subject/${c.id}">
+          <div class="flex space-between gap-8" style="margin-bottom:6px;">
+            <span class="tag tag-course ${c.accent || ''}">${c.icon} ${ME.helpers.escapeHtml(c.shortName)}</span>
+            <span class="muted">${o.topics} topics · ${c.credits} cr</span>
+          </div>
+          <h3>${ME.helpers.escapeHtml(c.name)}</h3>
+          <p class="muted">${ME.helpers.escapeHtml(c.code)} · ${ME.helpers.escapeHtml(c.category)}</p>
+          ${ME.helpers.bar(o.completion)}
+          <div class="muted" style="margin-top:4px;font-size:0.82rem;">${o.completion}% complete</div>
         </a>`;
       }).join('')}
     </div>
@@ -18,34 +23,79 @@ ME.routes.units = function () {
   ME.setView(html);
 };
 
-/* ---------------- Single unit: topics grouped by category ---------------- */
+/* ---------------- Single subject: its 4 units ---------------- */
+ME.routes.subject = function (parsed) {
+  const courseId = parsed.parts[1];
+  const c = ME.data.courseById[courseId];
+  if (!c) { ME.setView('<div class="empty-state">Subject not found.</div>'); return; }
+  const pack = ME.data.topicsByCourse[courseId];
+
+  const unitCards = [1, 2, 3, 4].map(function (n) {
+    const topics = pack ? pack.units[n - 1].topics : [];
+    const pct = ME.helpers.unitCompletionPct(courseId, n);
+    return `<a class="card card-link" href="#/subject/${courseId}/unit/${n}">
+      <div class="flex space-between" style="margin-bottom:6px;">${ME.helpers.unitTag(n)}<span class="muted">${topics.length} topics</span></div>
+      <h3>Unit ${ME.helpers.unitRoman(n)}${c.units[n - 1].subtitle ? ' — ' + ME.helpers.escapeHtml(c.units[n - 1].subtitle) : ''}</h3>
+      ${ME.helpers.bar(pct)}
+      <div class="muted" style="margin-top:4px;font-size:0.82rem;">${pct}% complete</div>
+    </a>`;
+  }).join('');
+
+  const html = `
+    ${ME.renderCrumbs([['Subjects', '#/units'], [c.shortName, null]])}
+    <div class="hero hero-subject ${c.accent || ''}">
+      <h1>${c.icon} ${ME.helpers.escapeHtml(c.name)}</h1>
+      <p>${ME.helpers.escapeHtml(c.code)} · ${ME.helpers.escapeHtml(c.category)} · ${c.credits} credits (${c.ltp}) · ${c.internalMarks} internal + ${c.externalMarks} external</p>
+      <p class="muted" style="max-width:760px;">${ME.helpers.escapeHtml(c.description)}</p>
+      <div class="flex gap-8 flex-wrap">
+        <a class="btn btn-primary" href="#/questions?course=${courseId}">Practice questions</a>
+        <a class="btn" href="#/flashcards?course=${courseId}">Flashcards</a>
+        <a class="btn" href="#/checklist?course=${courseId}">Syllabus checklist</a>
+        <a class="btn" href="#/exam/${courseId}">Mock exam</a>
+      </div>
+    </div>
+    <div class="grid grid-2">${unitCards}</div>
+  `;
+  ME.setView(html);
+};
+
+/* ---------------- Legacy route: #/unit/N → BME Unit N ---------------- */
 ME.routes.unit = function (parsed) {
-  const n = parseInt(parsed.parts[1], 10);
-  const unit = ME.data.units.find(function (u) { return u.n === n; });
-  if (!unit) { ME.setView('<div class="empty-state">Unit not found.</div>'); return; }
+  const n = parseInt(parsed.parts[1], 10) || 1;
+  location.hash = '#/subject/bme/unit/' + n;
+};
+
+/* ---------------- Unit page within a subject ---------------- */
+ME.routes.subjectUnit = function (parsed) {
+  const courseId = parsed.parts[1];
+  const n = parseInt(parsed.parts[2], 10);
+  const c = ME.data.courseById[courseId];
+  if (!c || !n) { ME.setView('<div class="empty-state">Subject or unit not found.</div>'); return; }
+  const topics = ME.helpers.topicsFor(courseId, n);
 
   const byCategory = {};
-  unit.topics.forEach(function (t) {
+  topics.forEach(function (t) {
     const cat = t.category || 'General';
     (byCategory[cat] = byCategory[cat] || []).push(t);
   });
 
   const html = `
-    ${ME.renderCrumbs([['Units', '#/units'], [unit.title, null]])}
-    <h1>${unit.title} — ${ME.helpers.escapeHtml(unit.subtitle)}</h1>
+    ${ME.renderCrumbs([['Subjects', '#/units'], [c.shortName, '#/subject/' + courseId], ['Unit ' + ME.helpers.unitRoman(n), null]])}
+    <h1>${c.icon} ${ME.helpers.escapeHtml(c.shortName)} — Unit ${ME.helpers.unitRoman(n)}</h1>
+    <p class="muted">${c.units[n - 1].subtitle ? ME.helpers.escapeHtml(c.units[n - 1].subtitle) + ' · ' : ''}${topics.length} topics</p>
     <div class="flex gap-8 flex-wrap" style="margin-bottom:18px;">
-      <a class="btn" href="#/questions?unit=${n}">Practice Unit ${n} questions</a>
-      <a class="btn" href="#/flashcards?unit=${n}">Unit ${n} flashcards</a>
-      <a class="btn" href="#/exam">Take a mock exam</a>
+      <a class="btn" href="#/questions?course=${courseId}&unit=${n}">Practice Unit ${ME.helpers.unitRoman(n)} questions</a>
+      <a class="btn" href="#/flashcards?course=${courseId}&unit=${n}">Unit ${ME.helpers.unitRoman(n)} flashcards</a>
+      <a class="btn" href="#/exam/${courseId}">Take the ${ME.helpers.escapeHtml(c.shortName)} mock exam</a>
     </div>
-    ${Object.keys(byCategory).map(function (cat) {
+    ${topics.length ? Object.keys(byCategory).map(function (cat) {
       return `<div class="topic-section"><h2>${ME.helpers.escapeHtml(cat)}</h2>${ME.helpers.topicCardsGrid(byCategory[cat])}</div>`;
-    }).join('')}
+    }).join('') : '<div class="empty-state"><h2>Content for this unit is coming in the next build pass.</h2><p class="muted">The syllabus checklist already tracks it.</p></div>'}
   `;
   ME.setView(html);
 };
 
-/* ---------------- Topic detail ---------------- */
+/* ---------------- Topic detail (course-aware) ---------------- */
 function renderPartsTable(parts) {
   if (!parts || !parts.length) return '';
   return `<table><thead><tr><th style="width:26%;">Part</th><th>Function</th></tr></thead><tbody>
@@ -90,13 +140,15 @@ ME.routes.topic = function (parsed) {
   if (!topic) { ME.setView('<div class="empty-state">Topic not found.</div>'); return; }
   ME.store.logVisit(id);
 
-  const unitObj = ME.data.units.find(function (u) { return u.n === topic.unit; });
+  const courseId = topic.course || 'bme';
+  const course = ME.data.courseById[courseId] || { shortName: courseId.toUpperCase(), name: courseId, icon: '📘', accent: '' };
+  const unitTopics = ME.helpers.topicsFor(courseId, topic.unit);
   const status = ME.store.getTopicStatus(id);
   const isBookmarked = ME.store.getBookmarks().includes(id);
   const relatedQs = ME.data.questions.filter(function (q) { return q.topic === id; });
+  const relatedCards = ME.data.flashcards.filter(function (f) { return f.topic === id; });
 
-  // Prev / next topic navigation within the unit (syllabus order).
-  const unitTopics = unitObj ? unitObj.topics : [];
+  // Prev / next topic navigation within this subject's unit (syllabus order).
   const tIdx = unitTopics.findIndex(function (t) { return t.id === id; });
   const prevTopic = tIdx > 0 ? unitTopics[tIdx - 1] : null;
   const nextTopic = tIdx >= 0 && tIdx < unitTopics.length - 1 ? unitTopics[tIdx + 1] : null;
@@ -113,7 +165,7 @@ ME.routes.topic = function (parsed) {
   }
 
   const html = `
-    ${ME.renderCrumbs([['Units', '#/units'], [unitObj ? unitObj.title : '', '#/unit/' + topic.unit], [topic.title, null]])}
+    ${ME.renderCrumbs([['Subjects', '#/units'], [course.shortName, '#/subject/' + courseId], ['Unit ' + ME.helpers.unitRoman(topic.unit), '#/subject/' + courseId + '/unit/' + topic.unit], [topic.title, null]])}
     <div class="flex space-between flex-wrap gap-8" style="margin-bottom:6px;">
       <h1 style="margin-bottom:0;">${ME.helpers.escapeHtml(topic.title)}</h1>
       <button id="bookmark-btn" class="btn btn-sm">${isBookmarked ? '★ Bookmarked' : '☆ Bookmark'}</button>
@@ -122,7 +174,7 @@ ME.routes.topic = function (parsed) {
 
     <div class="card" style="margin-bottom:20px;">
       <div class="flex space-between flex-wrap gap-8">
-        <div>${ME.helpers.unitTag(topic.unit)} <span class="tag">${ME.helpers.escapeHtml(topic.category || '')}</span></div>
+        <div>${ME.helpers.courseTag(courseId)} ${ME.helpers.unitTag(topic.unit)} <span class="tag">${ME.helpers.escapeHtml(topic.category || '')}</span></div>
         <div class="flex gap-8">
           <label class="muted" style="font-size:0.85rem;">Status:</label>
           <select id="status-select">
@@ -133,8 +185,14 @@ ME.routes.topic = function (parsed) {
           </select>
         </div>
       </div>
-    </div>
+      <div id="mastery-note"></div>
 
+    ${section('Why this matters', topic.whyThisMatters ? ME.helpers.para(topic.whyThisMatters) : '')}
+    ${section('Prerequisites', topic.prerequisites && topic.prerequisites.length ? `<ul class="nice-list">${topic.prerequisites.map(function (p) {
+      const pt = ME.data.topicById[p];
+      return '<li>' + (pt ? `<a href="#/topic/${pt.id}">${ME.helpers.escapeHtml(pt.title)}</a>` : ME.helpers.escapeHtml(p)) + '</li>';
+    }).join('')}</ul>` : '')}
+    ${section('Learning objectives', topic.learningObjectives && topic.learningObjectives.length ? '<ul class="nice-list">' + topic.learningObjectives.map(function (o) { return '<li>' + ME.helpers.escapeHtml(o) + '</li>'; }).join('') + '</ul>' : '')}
     ${section('What is it? / Overview', ME.helpers.para(topic.overview))}
     ${section('How it works', ME.helpers.para(topic.working))}
     ${section('Components / Parts', renderPartsTable(topic.parts))}
@@ -155,8 +213,23 @@ ME.routes.topic = function (parsed) {
 
     <div class="topic-section">
       <h2>Practice questions on this topic</h2>
-      ${relatedQs.length ? `<p class="muted">${relatedQs.length} question(s) in the bank tagged to this topic.</p><a class="btn btn-primary" href="#/questions?topic=${id}">Practice these questions →</a>` : `<p class="muted">No question-bank items are tagged to this exact topic yet — try the Unit ${topic.unit} question set.</p><a class="btn" href="#/questions?unit=${topic.unit}">Practice Unit ${topic.unit} questions →</a>`}
+      ${relatedQs.length ? `<p class="muted">${relatedQs.length} question(s) in the bank tagged to this topic.</p><a class="btn btn-primary" href="#/questions?topic=${id}">Practice these questions →</a>` : `<p class="muted">No question-bank items are tagged to this exact topic yet — try the Unit ${ME.helpers.unitRoman(topic.unit)} set for this subject.</p><a class="btn" href="#/questions?course=${courseId}&unit=${topic.unit}">Practice ${ME.helpers.escapeHtml(course.shortName)} Unit ${ME.helpers.unitRoman(topic.unit)} questions →</a>`}
     </div>
+
+    ${relatedCards.length ? `<div class="topic-section">
+      <h2>Flashcards on this topic</h2>
+      ${relatedCards.map(function (f) {
+        return `<div class="flashcard-static"><strong>${ME.helpers.escapeHtml(f.front)}</strong><div class="muted" style="margin-top:4px;">${ME.helpers.escapeHtml(f.back)}</div></div>`;
+      }).join('')}
+    </div>` : ''}
+
+    ${topic.relatedTopics && topic.relatedTopics.length ? `<div class="topic-section">
+      <h2>Related topics</h2>
+      <div class="grid grid-2">${topic.relatedTopics.map(function (rid) {
+        const rt = ME.data.topicById[rid];
+        return rt ? `<a class="card card-link" href="#/topic/${rt.id}">${ME.helpers.courseTag(rt.course || courseId)}${ME.helpers.unitTag(rt.unit)}<h3 style="margin-bottom:0;">${ME.helpers.escapeHtml(rt.title)}</h3></a>` : '';
+      }).join('')}</div>
+    </div>` : ''}
 
     ${topicNavHtml}
   `;
@@ -166,11 +239,27 @@ ME.routes.topic = function (parsed) {
   statusSelect.value = status;
   statusSelect.addEventListener('change', function () {
     ME.store.setTopicStatus(id, statusSelect.value);
+    ME.toast('Marked as ' + statusSelect.options[statusSelect.selectedIndex].text + ' ✓', 'success');
   });
   document.getElementById('bookmark-btn').addEventListener('click', function (e) {
     const now = ME.store.toggleBookmark(id);
     e.target.textContent = now ? '★ Bookmarked' : '☆ Bookmark';
   });
+
+  // Adaptive mastery hint (Phase 22): ≥85% accuracy over ≥3 attempts and
+  // not yet mastered → suggest promoting the status.
+  const masteryNote = document.getElementById('mastery-note');
+  if (masteryNote) {
+    const acc = ME.progress.topicAccuracy()[id];
+    if (acc && acc.total >= 3 && status !== 'mastered') {
+      const pct = Math.round(acc.correct / acc.total * 100);
+      if (pct >= 85) {
+        masteryNote.innerHTML = '<div class="exam-tip">💡 <strong>You\'re solving ' + pct + '% of this topic\'s questions correctly.</strong> If you\'ve also read the material, consider marking it <strong>Mastered</strong> above.</div>';
+      } else if (pct < 50) {
+        masteryNote.innerHTML = '<div class="mistake-box">⚠️ Only ' + pct + '% correct so far (' + acc.total + ' attempts). Re-read the overview, then <a href="#/questions?topic=' + id + '">retry the question set</a>.</div>';
+      }
+    }
+  }
 };
 
 /* ---------------- Diagram practice mode ---------------- */
@@ -180,7 +269,7 @@ ME.routes.diagram = function (parsed) {
   if (!topic || !topic.diagram || !topic.diagram.svg) { ME.setView('<div class="empty-state">No practice diagram available for this topic.</div>'); return; }
 
   const html = `
-    ${ME.renderCrumbs([['Units', '#/units'], [topic.title, '#/topic/' + id], ['Diagram practice', null]])}
+    ${ME.renderCrumbs([['Subjects', '#/units'], [topic.title, '#/topic/' + id], ['Diagram practice', null]])}
     <h1>Diagram practice — ${ME.helpers.escapeHtml(topic.title)}</h1>
     <p class="muted">Try to recall and sketch this on paper, then reveal each stage below.</p>
     <div class="filters">

@@ -1,6 +1,7 @@
 ME.routes.questions = function (parsed) {
   const q = parsed.query;
   const state = {
+    course: q.course || '',
     unit: q.unit || '',
     topic: q.topic || '',
     type: q.type || '',
@@ -9,6 +10,7 @@ ME.routes.questions = function (parsed) {
   };
 
   function matches(item) {
+    if (state.course && (item.course || 'bme') !== state.course) return false;
     if (state.unit && String(item.unit) !== String(state.unit)) return false;
     if (state.topic && item.topic !== state.topic) return false;
     if (state.type && item.type !== state.type) return false;
@@ -22,13 +24,26 @@ ME.routes.questions = function (parsed) {
 
   const filtered = ME.data.questions.filter(matches);
   const topicTitle = state.topic && ME.data.topicById[state.topic] ? ME.data.topicById[state.topic].title : '';
+  const courseName = state.course && ME.data.courseById[state.course] ? ME.data.courseById[state.course].shortName : '';
+
+  const courseOptions = ME.data.allCourses.map(function (c) {
+    const n = ME.data.questions.filter(function (x) { return (x.course || 'bme') === c.id; }).length;
+    return `<option value="${c.id}" ${state.course === c.id ? 'selected' : ''}>${c.icon} ${ME.helpers.escapeHtml(c.shortName)} (${n})</option>`;
+  }).join('');
 
   const html = `
     <h1>Question Bank</h1>
-    <p class="muted">${filtered.length} of ${ME.data.questions.length} questions${topicTitle ? ' — filtered to "' + ME.helpers.escapeHtml(topicTitle) + '"' : ''}</p>
+    <p class="muted">${filtered.length} of ${ME.data.questions.length} questions${courseName ? ' — ' + ME.helpers.escapeHtml(courseName) : ''}${topicTitle ? ' — filtered to "' + ME.helpers.escapeHtml(topicTitle) + '"' : ''}</p>
 
     <div class="card" style="margin-bottom:18px;">
-      <div class="grid grid-4">
+      <div class="grid grid-5">
+        <div>
+          <label class="muted" style="font-size:0.8rem;">Subject</label>
+          <select id="f-course" class="btn-block">
+            <option value="">All subjects</option>
+            ${courseOptions}
+          </select>
+        </div>
         <div>
           <label class="muted" style="font-size:0.8rem;">Unit</label>
           <select id="f-unit" class="btn-block">
@@ -61,29 +76,31 @@ ME.routes.questions = function (parsed) {
         </div>
         <div>
           <label class="muted" style="font-size:0.8rem;">Search text</label>
-          <input type="text" id="f-text" placeholder="e.g. Pelton" value="${ME.helpers.escapeHtml(state.text)}">
+          <input type="text" id="f-text" placeholder="e.g. pointer" value="${ME.helpers.escapeHtml(state.text)}">
         </div>
       </div>
       ${state.topic ? `<div style="margin-top:10px;"><button class="btn btn-sm" id="clear-topic">✕ Clear topic filter</button></div>` : ''}
     </div>
 
-    <div id="q-list">${filtered.map(renderQuestionCard).join('') || '<div class="empty-state">No questions match these filters.</div>'}</div>
+    <div id="q-list">${filtered.slice(0, 200).map(renderQuestionCard).join('') || '<div class="empty-state">No questions match these filters.</div>'}</div>
+    ${filtered.length > 200 ? `<p class="muted center">Showing the first 200 of ${filtered.length} matching questions — narrow the filters to see more.</p>` : ''}
   `;
   ME.setView(html);
 
+  ME.helpers.qs('#f-course').value = state.course;
   ME.helpers.qs('#f-unit').value = state.unit;
   ME.helpers.qs('#f-type').value = state.type;
   ME.helpers.qs('#f-difficulty').value = state.difficulty;
 
   function updateHash() {
     const params = [];
-    ['unit', 'topic', 'type', 'difficulty', 'text'].forEach(function (k) {
+    ['course', 'unit', 'topic', 'type', 'difficulty', 'text'].forEach(function (k) {
       const v = document.getElementById('f-' + k) ? document.getElementById('f-' + k).value : state[k];
       if (v) params.push(k + '=' + encodeURIComponent(v));
     });
     location.hash = '#/questions' + (params.length ? '?' + params.join('&') : '');
   }
-  ['unit', 'type', 'difficulty'].forEach(function (k) {
+  ['course', 'unit', 'type', 'difficulty'].forEach(function (k) {
     document.getElementById('f-' + k).addEventListener('change', updateHash);
   });
   let textTimer;
@@ -94,7 +111,7 @@ ME.routes.questions = function (parsed) {
   if (state.topic) {
     document.getElementById('clear-topic').addEventListener('click', function () {
       state.topic = '';
-      location.hash = '#/questions?unit=' + state.unit;
+      location.hash = '#/questions' + (state.course ? '?course=' + state.course : '');
     });
   }
 
@@ -102,13 +119,14 @@ ME.routes.questions = function (parsed) {
 };
 
 function renderQuestionCard(item) {
+  const course = ME.data.courseById[item.course || 'bme'];
   const optionsHtml = item.type === 'mcq' ? `<div class="q-options">${item.options.map(function (opt, i) {
     return `<label data-opt="${ME.helpers.escapeHtml(opt)}"><input type="radio" name="opt-${item.id}" value="${ME.helpers.escapeHtml(opt)}"> ${ME.helpers.escapeHtml(opt)}</label>`;
   }).join('')}</div>` : '';
 
   return `<div class="card q-card" data-qid="${item.id}" data-type="${item.type}" data-topic="${item.topic || ''}" data-unit="${item.unit}">
     <div class="flex gap-8 flex-wrap" style="margin-bottom:8px;">
-      ${ME.helpers.unitTag(item.unit)}${ME.helpers.diffTag(item.difficulty)}<span class="tag">${item.marks} mark${item.marks === 1 ? '' : 's'}</span><span class="tag">${item.type}</span>
+      ${course ? ME.helpers.courseTag(course) : ''}${ME.helpers.unitTag(item.unit)}${ME.helpers.diffTag(item.difficulty)}<span class="tag">${item.marks} mark${item.marks === 1 ? '' : 's'}</span><span class="tag">${item.type}</span>
     </div>
     <p style="font-weight:600;">${ME.helpers.escapeHtml(item.question)}</p>
     ${optionsHtml}
@@ -142,11 +160,13 @@ function wireQuestionCards() {
           else if (label.querySelector('input').checked) label.classList.add('incorrect');
         });
         reveal.style.display = 'block';
-        ME.store.logAttempt({ qid: item.id, correct: correct, unit: item.unit, topic: item.topic });
+        ME.store.logAttempt({ qid: item.id, correct: correct, unit: item.unit, topic: item.topic, course: item.course || 'bme' });
         if (!correct) {
-          ME.store.addMistake({ id: item.id, question: item.question, correct: item.answer, given: selected.value, explanation: item.explanation, topic: item.topic, unit: item.unit });
+          ME.store.addMistake({ id: item.id, question: item.question, correct: item.answer, given: selected.value, explanation: item.explanation, topic: item.topic, unit: item.unit, course: item.course || 'bme' });
+          ME.toast('✕ Not quite — saved to My Mistakes for retry', 'danger');
         } else {
           ME.store.removeMistake(item.id);
+          ME.toast('✓ Correct — well done!', 'success');
         }
         checkBtn.disabled = true;
       });
@@ -163,22 +183,23 @@ function wireQuestionCards() {
     const rightBtn = card.querySelector('.self-right');
     const wrongBtn = card.querySelector('.self-wrong');
     if (rightBtn) rightBtn.addEventListener('click', function () {
-      ME.store.logAttempt({ qid: item.id, correct: true, unit: item.unit, topic: item.topic });
+      ME.store.logAttempt({ qid: item.id, correct: true, unit: item.unit, topic: item.topic, course: item.course || 'bme' });
       ME.store.removeMistake(item.id);
       rightBtn.textContent = '✓ Logged';
       rightBtn.disabled = true; if (wrongBtn) wrongBtn.disabled = true;
     });
     if (wrongBtn) wrongBtn.addEventListener('click', function () {
-      ME.store.logAttempt({ qid: item.id, correct: false, unit: item.unit, topic: item.topic });
-      ME.store.addMistake({ id: item.id, question: item.question, correct: item.answer, given: '(self-marked wrong)', explanation: item.explanation, topic: item.topic, unit: item.unit });
+      ME.store.logAttempt({ qid: item.id, correct: false, unit: item.unit, topic: item.topic, course: item.course || 'bme' });
+      ME.store.addMistake({ id: item.id, question: item.question, correct: item.answer, given: '(self-marked wrong)', explanation: item.explanation, topic: item.topic, unit: item.unit, course: item.course || 'bme' });
       wrongBtn.textContent = '✕ Logged — added to My Mistakes';
       wrongBtn.disabled = true; if (rightBtn) rightBtn.disabled = true;
     });
 
     card.querySelector('.btn-bookmark-q').addEventListener('click', function (e) {
-      ME.store.addMistake({ id: item.id, question: item.question, correct: item.answer, given: '(saved for retry)', explanation: item.explanation, topic: item.topic, unit: item.unit });
+      ME.store.addMistake({ id: item.id, question: item.question, correct: item.answer, given: '(saved for retry)', explanation: item.explanation, topic: item.topic, unit: item.unit, course: item.course || 'bme' });
       e.target.textContent = '✓ Saved to My Mistakes';
       e.target.disabled = true;
+      ME.toast('🎯 Saved — retry it from My Mistakes later', 'success');
     });
   });
 }

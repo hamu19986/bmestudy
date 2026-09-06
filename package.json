@@ -1,21 +1,24 @@
 {
-  "name": "basics-of-mechanical-engineering-25esc-me-103h",
-  "version": "1.0.0",
-  "description": "Self-study and exam-preparation platform for Basics of Mechanical Engineering (25ESC-ME-103H): notes, diagrams, formulas, flashcards, question bank, mock exams and a smart revision system.",
+  "name": "btech-cse-semester1-academic-os",
+  "version": "2.0.0",
+  "description": "Self-study and exam-preparation platform for the complete B.Tech CSE Semester I (MDU H-Scheme 2025-26): Maths-I, Physics-I, PPS, EGD, BME, English and the PPS/Physics/English labs — notes, question banks, flashcards, formulas, glossary, mock exams, progress tracking and a smart revision system.",
   "private": true,
   "license": "MIT",
   "scripts": {
     "dev": "npx --yes serve . -l 5173",
     "start": "npm run dev",
     "validate-content": "node scripts/validate-content.js",
+    "coverage": "node scripts/coverage.js",
     "smoke": "node scripts/smoke-test.js",
     "test": "npm run validate-content && npm run smoke"
   },
   "keywords": [
-    "mechanical-engineering",
+    "btech",
+    "cse",
+    "semester-1",
     "study-platform",
     "exam-preparation",
-    "25ESC-ME-103H",
+    "mdu",
     "static-site"
   ]
 }

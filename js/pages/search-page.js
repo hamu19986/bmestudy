@@ -1,5 +1,5 @@
 /* ============================================================
-   GLOBAL SEARCH
+   GLOBAL SEARCH — across all subjects
    ============================================================ */
 ME.routes.search = function (parsed) {
   const query = (parsed.query.q || '').trim();
@@ -10,7 +10,7 @@ ME.routes.search = function (parsed) {
   if (needle) {
     topicResults = ME.data.allTopics.filter(function (t) {
       return (t.title + ' ' + (t.summary || '') + ' ' + (t.overview || '') + ' ' + (t.working || '')).toLowerCase().includes(needle);
-    });
+    }).slice(0, 60);
     questionResults = ME.data.questions.filter(function (q) {
       return (q.question + ' ' + (q.answer || '')).toLowerCase().includes(needle);
     });
@@ -23,7 +23,7 @@ ME.routes.search = function (parsed) {
     ME.data.formulas.forEach(function (sec) {
       sec.items.forEach(function (f) {
         if ((f.formula + ' ' + (f.meaning || '')).toLowerCase().includes(needle)) {
-          formulaResults.push(Object.assign({}, f, { section: sec.section }));
+          formulaResults.push(Object.assign({}, f, { section: sec.section, course: sec.course || 'bme' }));
         }
       });
     });
@@ -35,13 +35,14 @@ ME.routes.search = function (parsed) {
     <h1>Search</h1>
     <div class="card" style="margin-bottom:18px;">
       <label class="muted" style="font-size:0.8rem;">Search everything — topics, questions, flashcards, glossary, formulas</label>
-      <input type="text" id="global-search" placeholder="e.g. lathe, entropy, Pelton" value="${ME.helpers.escapeHtml(query)}">
+      <input type="text" id="global-search" placeholder="e.g. pointer, entropy, Pelton, phoneme" value="${ME.helpers.escapeHtml(query)}">
     </div>
     ${!needle ? '<p class="muted">Type something above to search across the whole app.</p>' : `
       <p class="muted">${totalResults} result(s) for &ldquo;${ME.helpers.escapeHtml(query)}&rdquo;</p>
 
       ${topicResults.length ? `<div class="topic-section"><h2>📘 Topics (${topicResults.length})</h2><div class="grid grid-2">${topicResults.map(function (t) {
-        return `<a class="card card-link" href="#/topic/${t.id}">${ME.helpers.unitTag(t.unit)}<h3>${ME.helpers.escapeHtml(t.title)}</h3><p class="muted">${ME.helpers.escapeHtml(t.summary || '')}</p></a>`;
+        const c = ME.helpers.courseOf(t);
+        return `<a class="card card-link" href="#/topic/${t.id}">${ME.helpers.courseTag(c)}${ME.helpers.unitTag(t.unit)}<h3>${ME.helpers.escapeHtml(t.title)}</h3><p class="muted">${ME.helpers.escapeHtml(t.summary || '')}</p></a>`;
       }).join('')}</div></div>` : ''}
 
       ${questionResults.length ? `<div class="topic-section"><h2>❓ Questions (${questionResults.length})</h2><p class="muted">${questionResults.length} question(s) found.</p><a class="btn btn-primary" href="#/questions?text=${encodeURIComponent(query)}">Open in Question Bank →</a></div>` : ''}
@@ -50,13 +51,14 @@ ME.routes.search = function (parsed) {
         return `<li>${ME.helpers.escapeHtml(c.front)}</li>`;
       }).join('')}</ul><a class="btn" href="#/flashcards">Open Flashcards →</a></div>` : ''}
 
-      ${glossaryResults.length ? `<div class="topic-section"><h2>🔤 Glossary (${glossaryResults.length})</h2>${glossaryResults.map(function (g) {
-        return `<a class="glossary-term" href="#/glossary#letter-${g.term[0].toUpperCase()}" style="text-decoration:none;"><h3>${ME.helpers.escapeHtml(g.term)}</h3><p>${ME.helpers.escapeHtml(g.simple)}</p></a>`;
+      ${glossaryResults.length ? `<div class="topic-section"><h2>🔤 Glossary (${glossaryResults.length})</h2>${glossaryResults.slice(0, 20).map(function (g) {
+        const c = ME.data.courseById[g.course || 'bme'];
+        return `<a class="glossary-term" href="#/glossary#letter-${g.term[0].toUpperCase()}" style="text-decoration:none;"><h3>${ME.helpers.escapeHtml(g.term)}${c ? ' <span class="muted" style="font-size:0.75rem;font-weight:400;">' + ME.helpers.escapeHtml(c.shortName) + '</span>' : ''}</h3><p>${ME.helpers.escapeHtml(g.simple)}</p></a>`;
       }).join('')}</div>` : ''}
 
-      ${formulaResults.length ? `<div class="topic-section"><h2>∑ Formulas (${formulaResults.length})</h2>${formulaResults.map(function (f) {
-        const secSlug = ME.helpers.escapeHtml(f.section).replace(/\s+/g, '-');
-        return `<a class="formula-box" href="#/formulas#sec-${secSlug}" style="text-decoration:none;border-left-color:var(--accent);margin-bottom:8px;"><strong>${ME.helpers.escapeHtml(f.formula)}</strong><div class="muted" style="font-size:0.85rem;">${ME.helpers.escapeHtml(f.meaning || '')}</div></a>`;
+      ${formulaResults.length ? `<div class="topic-section"><h2>∑ Formulas (${formulaResults.length})</h2>${formulaResults.slice(0, 20).map(function (f) {
+        const c = ME.data.courseById[f.course];
+        return `<a class="formula-box" href="#/formulas" style="text-decoration:none;border-left-color:var(--accent);margin-bottom:8px;"><strong>${ME.helpers.escapeHtml(f.formula)}</strong><div class="muted" style="font-size:0.85rem;">${c ? ME.helpers.escapeHtml(c.shortName) + ' · ' : ''}${ME.helpers.escapeHtml(f.meaning || '')}</div></a>`;
       }).join('')}</div>` : ''}
 
       ${totalResults === 0 ? '<div class="empty-state"><h2>No results found.</h2><p class="muted">Try a shorter or more general keyword.</p></div>' : ''}

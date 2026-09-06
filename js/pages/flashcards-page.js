@@ -1,8 +1,8 @@
 /* ============================================================
    FLASHCARDS PAGE
    Flip cards front/back, self-rate Know it / Almost / Don't know,
-   progress tracked in localStorage. Cards can be filtered by unit,
-   category and review mode (all / unseen / weak).
+   progress tracked in localStorage. Cards can be filtered by
+   subject, unit, category and review mode (all / unseen / weak).
    Keyboard: ← → navigate, Space/Enter flip, 1/2/3 rate.
    ============================================================ */
 
@@ -16,11 +16,12 @@ function flashRatingBadge(lvl) {
 
 ME.routes.flashcards = function (parsed) {
   const q = parsed.query;
-  const state = { unit: q.unit || '', category: q.category || '', review: q.review || 'all' };
+  const state = { course: q.course || '', unit: q.unit || '', category: q.category || '', review: q.review || 'all' };
   const reviewMode = q.review || 'all';
   const progress = ME.store.getFlashProgress();
 
   function matches(c) {
+    if (state.course && (c.course || 'bme') !== state.course) return false;
     if (state.unit && String(c.unit) !== String(state.unit)) return false;
     if (state.category && c.category !== state.category) return false;
     return true;
@@ -34,7 +35,7 @@ ME.routes.flashcards = function (parsed) {
   }
 
   const categories = Array.from(new Set(ME.data.flashcards
-    .filter(function (c) { return !state.unit || String(c.unit) === String(state.unit); })
+    .filter(function (c) { return (!state.course || (c.course || 'bme') === state.course) && (!state.unit || String(c.unit) === String(state.unit)); })
     .map(function (c) { return c.category; })));
 
   const counts = { know: 0, almost: 0, dont: 0, unseen: 0 };
@@ -43,12 +44,27 @@ ME.routes.flashcards = function (parsed) {
     if (lvl && counts[lvl] !== undefined) counts[lvl]++; else counts.unseen++;
   });
 
+  const courseOptions = ME.data.allCourses.map(function (c) {
+    const n = ME.data.flashcards.filter(function (x) { return (x.course || 'bme') === c.id; }).length;
+    return `<option value="${c.id}" ${state.course === c.id ? 'selected' : ''}>${c.icon} ${ME.helpers.escapeHtml(c.shortName)} (${n})</option>`;
+  }).join('');
+
+  const scopeLabel = (state.course && ME.data.courseById[state.course] ? ME.data.courseById[state.course].shortName + ' · ' : '') +
+    (state.unit ? 'Unit ' + ['', 'I', 'II', 'III', 'IV'][state.unit] : 'All units');
+
   const html = `
     <h1>Flashcards</h1>
-    <p class="muted">${deck.length} card(s)${state.unit ? ' in Unit ' + ['', 'I', 'II', 'III', 'IV'][state.unit] : ' across all units'}. Rate yourself honestly — your ratings are saved on this device.</p>
+    <p class="muted">${deck.length} card(s) — ${ME.helpers.escapeHtml(scopeLabel)}. Rate yourself honestly — your ratings are saved on this device.</p>
 
     <div class="card" style="margin-bottom:16px;">
-      <div class="grid grid-3">
+      <div class="grid grid-4">
+        <div>
+          <label class="muted" style="font-size:0.8rem;">Subject</label>
+          <select id="fc-course" class="btn-block">
+            <option value="">All subjects</option>
+            ${courseOptions}
+          </select>
+        </div>
         <div>
           <label class="muted" style="font-size:0.8rem;">Unit</label>
           <select id="fc-unit" class="btn-block">
@@ -113,27 +129,22 @@ ME.routes.flashcards = function (parsed) {
 
   if (!deck.length) return;
 
+  ME.helpers.qs('#fc-course').value = state.course;
   ME.helpers.qs('#fc-unit').value = state.unit;
   const fcReviewEl = document.getElementById('fc-review');
   if (fcReviewEl) fcReviewEl.value = reviewMode;
 
-  document.getElementById('fc-unit').addEventListener('change', function (e) {
-    location.hash = '#/flashcards' + (e.target.value ? '?unit=' + e.target.value : '');
-  });
-  document.getElementById('fc-category').addEventListener('change', function (e) {
+  function rebuildHash() {
     const params = [];
-    const unitVal = document.getElementById('fc-unit').value;
-    if (unitVal) params.push('unit=' + unitVal);
-    if (e.target.value) params.push('category=' + encodeURIComponent(e.target.value));
-    location.hash = '#/flashcards' + (params.length ? '?' + params.join('&') : '');
-  });
-  document.getElementById('fc-review').addEventListener('change', function (e) {
-    const params = ['review=' + e.target.value];
-    const unitVal = document.getElementById('fc-unit').value;
+    if (document.getElementById('fc-course').value) params.push('course=' + document.getElementById('fc-course').value);
+    if (document.getElementById('fc-unit').value) params.push('unit=' + document.getElementById('fc-unit').value);
     const catVal = document.getElementById('fc-category').value;
-    if (unitVal) params.push('unit=' + unitVal);
     if (catVal) params.push('category=' + encodeURIComponent(catVal));
+    params.push('review=' + document.getElementById('fc-review').value);
     location.hash = '#/flashcards' + (params.length ? '?' + params.join('&') : '');
+  }
+  ['fc-course', 'fc-unit', 'fc-category', 'fc-review'].forEach(function (id) {
+    document.getElementById(id).addEventListener('change', rebuildHash);
   });
 
   let order = deck.map(function (c, i) { return i; });

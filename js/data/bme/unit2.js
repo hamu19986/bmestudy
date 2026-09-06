@@ -3,11 +3,12 @@
    25ESC-ME-103H
    ============================================================ */
 
-const UNIT2_TOPICS = [
+const BME_UNIT2_TOPICS = [
 
 // ---------------------------------------------------------------
 {
   id: 'u2-refrigeration-basics',
+  course: 'bme',
   unit: 2,
   category: 'Refrigeration & AC',
   title: 'Refrigeration Basics & Ton of Refrigeration',
@@ -36,6 +37,7 @@ const UNIT2_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u2-cop',
+  course: 'bme',
   unit: 2,
   category: 'Refrigeration & AC',
   title: 'Coefficient of Performance (COP)',
@@ -65,6 +67,7 @@ const UNIT2_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u2-vcr-cycle',
+  course: 'bme',
   unit: 2,
   category: 'Refrigeration & AC',
   title: 'Simple Vapour Compression Refrigeration Cycle',
@@ -126,6 +129,7 @@ const UNIT2_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u2-psychrometry',
+  course: 'bme',
   unit: 2,
   category: 'Refrigeration & AC',
   title: 'Psychrometry',
@@ -164,6 +168,7 @@ const UNIT2_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u2-human-comfort',
+  course: 'bme',
   unit: 2,
   category: 'Refrigeration & AC',
   title: 'Human Comfort',
@@ -189,6 +194,7 @@ const UNIT2_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u2-turbines-intro',
+  course: 'bme',
   unit: 2,
   category: 'Hydraulic Machines',
   title: 'Hydraulic Turbines — Introduction & Classification',
@@ -231,6 +237,7 @@ const UNIT2_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u2-pelton',
+  course: 'bme',
   unit: 2,
   category: 'Hydraulic Machines',
   title: 'Pelton Turbine (Impulse Turbine)',
@@ -265,6 +272,7 @@ const UNIT2_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u2-francis',
+  course: 'bme',
   unit: 2,
   category: 'Hydraulic Machines',
   title: 'Francis Turbine (Reaction Turbine)',
@@ -296,6 +304,7 @@ const UNIT2_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u2-kaplan',
+  course: 'bme',
   unit: 2,
   category: 'Hydraulic Machines',
   title: 'Kaplan Turbine (Reaction Turbine)',
@@ -337,6 +346,7 @@ const UNIT2_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u2-centrifugal-pump',
+  course: 'bme',
   unit: 2,
   category: 'Hydraulic Machines',
   title: 'Centrifugal Pump',
@@ -372,6 +382,7 @@ const UNIT2_TOPICS = [
 // ---------------------------------------------------------------
 {
   id: 'u2-reciprocating-pump',
+  course: 'bme',
   unit: 2,
   category: 'Hydraulic Machines',
   title: 'Reciprocating Pump',
