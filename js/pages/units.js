@@ -28,6 +28,7 @@ ME.routes.subject = function (parsed) {
   const courseId = parsed.parts[1];
   const c = ME.data.courseById[courseId];
   if (!c) { ME.setView('<div class="empty-state">Subject not found.</div>'); return; }
+  ME.store.set('lastCourse', courseId);
   const pack = ME.data.topicsByCourse[courseId];
 
   const unitCards = [1, 2, 3, 4].map(function (n) {
@@ -59,10 +60,17 @@ ME.routes.subject = function (parsed) {
   ME.setView(html);
 };
 
-/* ---------------- Legacy route: #/unit/N → BME Unit N ---------------- */
+/* ---------------- Legacy route: #/unit/N → last-read subject's Unit N ---------------- */
 ME.routes.unit = function (parsed) {
   const n = parseInt(parsed.parts[1], 10) || 1;
-  location.hash = '#/subject/bme/unit/' + n;
+  // Legacy bookmarked URLs: return users to the subject they were last
+  // reading (defaulting to the first subject with content), not always BME.
+  const lastCourse = ME.store.get('lastCourse');
+  const withContent = ME.data.allCourses.filter(function (c) { return ME.helpers.topicsForCourse(c.id).length; });
+  const cid = (lastCourse && ME.data.courseById[lastCourse] && ME.helpers.topicsForCourse(lastCourse).length)
+    ? lastCourse
+    : (withContent[0] || { id: 'bme' }).id;
+  location.hash = '#/subject/' + cid + '/unit/' + n;
 };
 
 /* ---------------- Unit page within a subject ---------------- */
@@ -71,6 +79,7 @@ ME.routes.subjectUnit = function (parsed) {
   const n = parseInt(parsed.parts[2], 10);
   const c = ME.data.courseById[courseId];
   if (!c || !n) { ME.setView('<div class="empty-state">Subject or unit not found.</div>'); return; }
+  ME.store.set('lastCourse', courseId);
   const topics = ME.helpers.topicsFor(courseId, n);
 
   const byCategory = {};
