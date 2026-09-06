@@ -26,6 +26,8 @@ jobs:
         run: npm run validate-content
       - name: Smoke test every route
         run: npm run smoke
+      - name: Navigation journey + link-integrity test
+        run: npm run navtest
       - name: Coverage report (informational until all content is authored)
         run: npm run coverage || true
 
