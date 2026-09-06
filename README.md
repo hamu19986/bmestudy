@@ -39,6 +39,25 @@ weak areas across the whole semester — fully offline, no backend, no account.
 - `npm run coverage` shows exactly what remains: currently **143/189 mapped
   (76%)** — all 6 theory subjects at 100%, 46 lab syllabus items pending.
 
+## Security posture
+
+Hardened static-site design, audited regularly:
+
+- **Zero runtime dependencies** — no supply-chain surface (`npm audit` n/a;
+  only dev `npx serve` for local preview).
+- **No backend, no accounts, no cookies** — all user data stays in the
+  browser's `localStorage` under a namespaced key; JSON parsing is guarded
+  against corrupted values.
+- **XSS-hardened rendering** — all dynamic HTML goes through one
+  `escapeHtml()` (escapes `& < > " '`) or is built only from internal
+  constant data; URL hash/query values are filtered and compared, never
+  echoed raw; no inline event handlers; no `javascript:` URLs;
+  `target=_blank` links (none today) would carry `rel=noopener`.
+- **No third-party scripts, fonts or trackers** — everything is same-origin.
+- **CSP-ready** — a strict policy can be enabled any time (Content-Security-Policy
+  response header or meta tag) using `'self' 'unsafe-inline'`; the single
+  3-line inline boot script can be externalised for a nonce-based policy.
+
 ## Architecture
 
 Plain **HTML + CSS + vanilla JavaScript**; content lives as plain JS data
