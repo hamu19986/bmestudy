@@ -99,7 +99,7 @@ ME.routes.subjectUnit = function (parsed) {
     </div>
     ${topics.length ? Object.keys(byCategory).map(function (cat) {
       return `<div class="topic-section"><h2>${ME.helpers.escapeHtml(cat)}</h2>${ME.helpers.topicCardsGrid(byCategory[cat])}</div>`;
-    }).join('') : '<div class="empty-state"><h2>Content for this unit is coming in the next build pass.</h2><p class="muted">The syllabus checklist already tracks it.</p></div>'}
+    }).join('') : '<div class="empty-state"><h2>Content pending</h2><p class="muted">This unit\'s topics are mapped in the syllabus checklist and will appear here as soon as their content is added.</p></div>'}
   `;
   ME.setView(html);
 };
