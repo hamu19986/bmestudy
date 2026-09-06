@@ -18,11 +18,13 @@ ME.routes.checklist = function () {
       const best = statuses.reduce(function (a, b) { return statusOrder.indexOf(b) > statusOrder.indexOf(a) ? b : a; }, 'not-started');
       totalItems++;
       if (best === 'mastered') totalDone++;
-      const linkId = item.topics[0];
+      const linkId = item.topics.find(function (tid) { return !!ME.data.topicById[tid]; });
+      const pendingIds = item.topics.filter(function (tid) { return !ME.data.topicById[tid]; });
       return `<div class="checklist-row">
         <span class="label">${statusIcon[best]} ${ME.helpers.escapeHtml(item.label)}</span>
         ${ME.helpers.statusBadge(best)}
         ${linkId ? `<a class="btn btn-sm" href="#/topic/${linkId}">Open →</a>` : ''}
+        ${!linkId && pendingIds.length ? '<span class="tag">Content pending</span>' : ''}
       </div>`;
     }).join('');
     const unitDone = unit.items.filter(function (item) {
