@@ -274,8 +274,15 @@ ME.helpers.qsa = function (sel, root) { return Array.prototype.slice.call((root 
 ME.helpers.parseHash = function () {
   let hash = location.hash.replace(/^#\/?/, '');
   if (!hash) hash = 'home';
-  const [pathAndAnchor, queryStr] = hash.split('?');
-  const [path, anchor] = pathAndAnchor.split('#');
+  // Anchor comes AFTER the query string: #/route?query#anchor.
+  // Split the trailing anchor off first so it never contaminates query values.
+  let anchor = '';
+  const hashIdx = hash.lastIndexOf('#');
+  if (hashIdx !== -1) {
+    anchor = decodeURIComponent(hash.slice(hashIdx + 1));
+    hash = hash.slice(0, hashIdx);
+  }
+  const [path, queryStr] = hash.split('?');
   const parts = path.split('/').filter(Boolean);
   const query = {};
   if (queryStr) {
