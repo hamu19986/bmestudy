@@ -10,7 +10,8 @@
     "validate-content": "node scripts/validate-content.js",
     "coverage": "node scripts/coverage.js",
     "smoke": "node scripts/smoke-test.js",
-    "test": "npm run validate-content && npm run smoke"
+    "navtest": "node scripts/nav-test.js",
+    "test": "npm run validate-content && npm run smoke && npm run navtest"
   },
   "keywords": [
     "btech",
